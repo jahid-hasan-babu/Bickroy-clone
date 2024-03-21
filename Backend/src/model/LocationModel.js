@@ -3,18 +3,14 @@ const { Schema, model } = mongoose;
 
 const DataSchema = Schema(
   {
-    categoryName: {
+    locationName: {
       type: String,
       required: true,
-      unique: true,
+      trim: true,
     },
-    image:{
-      type: String,
-      required: true,
-    }
   },
   { timestamps: true, versionKey: false }
 );
 
-const CategoryModel = model("categories", DataSchema);
-module.exports = CategoryModel;
+const LocationModel = model("locations", DataSchema);
+module.exports = LocationModel;

@@ -3,18 +3,19 @@ const { Schema, model } = mongoose;
 
 const DataSchema = Schema(
   {
-    categoryName: {
+    subBrandName: {
       type: String,
+      trim: true,
       required: true,
-      unique: true,
     },
-    image:{
-      type: String,
+    brandID: {
+      type: mongoose.Schema.Types.ObjectId,
       required: true,
-    }
+      trim: true,
+    },
   },
   { timestamps: true, versionKey: false }
 );
 
-const CategoryModel = model("categories", DataSchema);
-module.exports = CategoryModel;
+const Model = model("models", DataSchema);
+module.exports = Model;

@@ -13,17 +13,15 @@ const DataSchema = Schema(
       trim: true,
       required: true,
     },
-    location: {
-      type: String,
+    locationID: {
+      type: mongoose.Schema.Types.ObjectId,
       trim: true,
-      required: true,
     },
-    subLocation: {
-      type: String,
+    subLocationID: {
+      type: mongoose.Schema.Types.ObjectId,
       trim: true,
-      required: true,
     },
-    mobile: {
+    phone: {
       type: String,
       trim: true,
       validate: {

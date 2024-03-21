@@ -3,18 +3,19 @@ const { Schema, model } = mongoose;
 
 const DataSchema = Schema(
   {
-    categoryName: {
+    subLocationName: {
       type: String,
+      trim: true,
       required: true,
-      unique: true,
     },
-    image:{
-      type: String,
+    locationID: {
+      type: mongoose.Schema.Types.ObjectId,
       required: true,
-    }
+      trim: true,
+    },
   },
   { timestamps: true, versionKey: false }
 );
 
-const CategoryModel = model("categories", DataSchema);
-module.exports = CategoryModel;
+const SubLocationModel = model("sublocations", DataSchema);
+module.exports = SubLocationModel;
