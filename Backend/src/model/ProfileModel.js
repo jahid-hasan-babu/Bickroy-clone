@@ -3,7 +3,7 @@ const { Schema, model } = mongoose;
 
 const DataSchema = Schema(
   {
-    userId: {
+    userID: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
       trim: true,

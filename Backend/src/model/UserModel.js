@@ -14,7 +14,7 @@ const DataSchema = Schema(
       required: [true, "User email required"],
     },
     otp: {
-      type: Number,
+      type: String,
       required: true,
     },
   },
