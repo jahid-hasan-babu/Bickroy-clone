@@ -3,34 +3,34 @@ const { Schema, model } = mongoose;
 
 const DataSchema = Schema(
   {
-    profileID: {
+    userID: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
     },
-    categoryID: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: true,
-    },
-    subcategoryID: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: true,
-    },
-    brandID: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: true,
-    },
-    modelID: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: true,
-    },
-    locationID: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: true,
-    },
-    subLocationID: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: true,
-    },
+    // categoryID: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   // required: true,
+    // },
+    // subcategoryID: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   // required: true,
+    // },
+    // brandID: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   // required: true,
+    // },
+    // modelID: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   // required: true,
+    // },
+    // locationID: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   // required: true,
+    // },
+    // subLocationID: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   required: true,
+    // },
     condition: {
       type: String,
       required: true,
@@ -55,11 +55,15 @@ const DataSchema = Schema(
       required: true,
       trim: true,
     },
+    approvedByAdmin: {
+      type: Boolean,
+      default: false,
+    },
     img1: { type: String, required: true },
-    img2: { type: String, required: true },
-    img3: { type: String, required: true },
-    img4: { type: String, required: true },
-    img5: { type: String, required: true },
+    // img2: { type: String, required: true },
+    // img3: { type: String, required: true },
+    // img4: { type: String, required: true },
+    // img5: { type: String, required: true },
   },
   { timestamps: true, versionKey: false }
 );

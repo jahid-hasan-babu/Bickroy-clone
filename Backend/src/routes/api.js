@@ -1,8 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const UserController = require("../controller/UserController");
 const AuthVerification = require("../middleware/AuthVerification");
+const UserController = require("../controller/UserController");
+const AddsController = require("../controller/AddsController");
 
+//users
 router.get("/login/:email", UserController.login);
 router.get("/verifyLogin/:email/:otp", UserController.verifyLogin);
 router.get("/logout", AuthVerification, UserController.UserLogout);
@@ -14,4 +16,6 @@ router.delete(
   UserController.deleteProfile
 );
 
+//adds
+router.post("/create-adds", AuthVerification, AddsController.createAdd);
 module.exports = router;
