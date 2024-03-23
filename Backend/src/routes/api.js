@@ -18,4 +18,14 @@ router.delete(
 
 //adds
 router.post("/create-adds", AuthVerification, AddsController.createAdd);
+//read all adds public
+router.get("/read-adds", AddsController.readAllAdds);
+//read all adds for user who create
+router.get("/read-user-add", AuthVerification, AddsController.readUserAdd);
+router.delete(
+  "/delete-user-add/:addId",
+  AuthVerification,
+  AddsController.deleteAddByUser
+);
+
 module.exports = router;
