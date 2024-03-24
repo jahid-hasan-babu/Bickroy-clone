@@ -3,6 +3,8 @@ const router = express.Router();
 const AuthVerification = require("../middleware/AuthVerification");
 const UserController = require("../controller/UserController");
 const AddsController = require("../controller/AddsController");
+const AdminController = require("../controller/AdminController");
+const AdminVerification = require("../middleware/AdminVerification");
 
 //users
 router.get("/login/:email", UserController.login);
@@ -27,5 +29,10 @@ router.delete(
   AuthVerification,
   AddsController.deleteAddByUser
 );
+
+//admin
+router.post("/create-admin", AdminController.createAdmin); //this route use only one time
+router.get("/login-admin/:email/:password", AdminController.adminLogin);
+router.patch("/update-admin", AdminVerification, AdminController.updateAdmin);
 
 module.exports = router;

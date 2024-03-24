@@ -18,7 +18,7 @@ const DataSchema = Schema(
       validate: {
         validator: function (v) {
           // Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one digit, and one special character
-          return /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$@#!%*?&]).{8,}$/.test(
+          return /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()-_=+{};:,<.>]).{8,}$/.test(
             v
           );
         },
