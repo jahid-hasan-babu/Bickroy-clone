@@ -5,6 +5,7 @@ const UserController = require("../controller/UserController");
 const AddsController = require("../controller/AddsController");
 const AdminController = require("../controller/AdminController");
 const AdminVerification = require("../middleware/AdminVerification");
+const CategoryController = require("../controller/CategoryController");
 
 //users
 router.get("/login/:email", UserController.login);
@@ -34,5 +35,24 @@ router.delete(
 router.post("/create-admin", AdminController.createAdmin); //this route use only one time
 router.get("/login-admin/:email/:password", AdminController.adminLogin);
 router.patch("/update-admin", AdminVerification, AdminController.updateAdmin);
+
+//category
+router.post(
+  "/create-category",
+  AdminVerification,
+  CategoryController.createCategory
+);
+router.get("/category-list", CategoryController.allCategory);
+router.patch(
+  "/update-category/:id",
+  AdminVerification,
+  CategoryController.updateCategory
+);
+
+router.delete(
+  "/delete-category/:id",
+  AdminVerification,
+  CategoryController.deleteCategory
+);
 
 module.exports = router;
