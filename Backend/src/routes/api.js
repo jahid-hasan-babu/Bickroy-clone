@@ -6,6 +6,7 @@ const AddsController = require("../controller/AddsController");
 const AdminController = require("../controller/AdminController");
 const AdminVerification = require("../middleware/AdminVerification");
 const CategoryController = require("../controller/CategoryController");
+const BrandsController = require("../controller/BrandsController");
 
 //users
 router.get("/login/:email", UserController.login);
@@ -55,4 +56,18 @@ router.delete(
   CategoryController.deleteCategory
 );
 
+//Brands
+router.post("/create-brand", AdminVerification, BrandsController.createBrand);
+router.get("/brand-list", BrandsController.readAll);
+router.patch(
+  "/update-brand/:id",
+  AdminVerification,
+  BrandsController.updateBrand
+);
+
+router.delete(
+  "/delete-brand/:id",
+  AdminVerification,
+  BrandsController.deleteBrand
+);
 module.exports = router;
