@@ -10,6 +10,7 @@ const BrandsController = require("../controller/BrandsController");
 const LocationController = require("../controller/LocationController");
 const SubCategoryController = require("../controller/SubcategoryController");
 const SubBrandController = require("../controller/SubBrandsController");
+const SubLocationController = require("../controller/SubLocationController");
 
 //users
 router.get("/login/:email", UserController.login);
@@ -120,11 +121,7 @@ router.post(
   AdminVerification,
   LocationController.createLocation
 );
-router.get(
-  "/location-list",
-  AdminVerification,
-  LocationController.readAllLocation
-);
+router.get("/location-list", LocationController.readAllLocation);
 
 router.patch(
   "/update-location/:id",
@@ -137,4 +134,25 @@ router.delete(
   AdminVerification,
   LocationController.deleteLocation
 );
+
+//sub location
+router.post(
+  "/create-subLocation",
+  AdminVerification,
+  SubLocationController.createSubLocation
+);
+
+router.get("/subLocation-list", SubLocationController.readAllSubLocation);
+router.patch(
+  "/update-subLocation/:id",
+  AdminVerification,
+  SubLocationController.updateSubLocation
+);
+
+router.delete(
+  "/delete-subLocation/:id",
+  AdminVerification,
+  SubLocationController.deleteSubLocation
+);
+
 module.exports = router;
