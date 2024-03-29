@@ -2,6 +2,8 @@ const {
   createAdminService,
   AdminLogin,
   updateAdminService,
+  approveAddService,
+  deleteAddService,
 } = require("../services/AdminService");
 
 exports.createAdmin = async (req, res) => {
@@ -16,5 +18,15 @@ exports.adminLogin = async (req, res) => {
 
 exports.updateAdmin = async (req, res) => {
   let result = await updateAdminService(req);
+  res.status(200).json(result);
+};
+
+exports.approveAdmin = async (req, res) => {
+  let result = await approveAddService(req);
+  res.status(200).json(result);
+};
+
+exports.deleteAdds = async (req, res) => {
+  let result = await deleteAddService(req);
   res.status(200).json(result);
 };

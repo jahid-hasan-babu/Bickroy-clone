@@ -1,4 +1,5 @@
 const AdminModel = require("../model/AdminModel");
+const AddModel = require("../model/AddModel");
 const jwt = require("jsonwebtoken");
 
 const createAdminService = async (req) => {
@@ -43,4 +44,36 @@ const updateAdminService = async (req) => {
   }
 };
 
-module.exports = { createAdminService, AdminLogin, updateAdminService };
+//approve adds
+const approveAddService = async (req) => {
+  try {
+    const { adId } = req.params;
+
+    // Find the ad by ID and update its approvedByAdmin field to true
+    const approvedAd = await AddModel.findByIdAndUpdate(
+      adId,
+      { approvedByAdmin: true },
+      { new: true }
+    );
+    return { status: "success", data: approvedAd };
+  } catch (error) {
+    return { status: "fail", message: "data not found" };
+  }
+};
+
+const deleteAddService = async (req) => {
+  try {
+    const { adId } = req.params;
+    await AddModel.findByIdAndDelete(adId);
+    return { status: "success", message: "add delete success" };
+  } catch (error) {
+    return { status: "fail", message: "add delete fail" };
+  }
+};
+module.exports = {
+  createAdminService,
+  AdminLogin,
+  updateAdminService,
+  approveAddService,
+  deleteAddService,
+};
