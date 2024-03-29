@@ -9,6 +9,7 @@ const CategoryController = require("../controller/CategoryController");
 const BrandsController = require("../controller/BrandsController");
 const LocationController = require("../controller/LocationController");
 const SubCategoryController = require("../controller/SubcategoryController");
+const SubBrandController = require("../controller/SubBrandsController");
 
 //users
 router.get("/login/:email", UserController.login);
@@ -91,6 +92,26 @@ router.delete(
   "/delete-brand/:id",
   AdminVerification,
   BrandsController.deleteBrand
+);
+
+// sub brands
+router.post(
+  "/create-subBrand",
+  AdminVerification,
+  SubBrandController.createSubBrand
+);
+
+router.get("/subBrands-list", SubBrandController.readSubBrand);
+router.patch(
+  "/update-SubBrand/:id",
+  AdminVerification,
+  SubBrandController.updateSubBrand
+);
+
+router.delete(
+  "/delete-subBrand/:id",
+  AdminVerification,
+  SubBrandController.deleteSubBrand
 );
 
 //location
