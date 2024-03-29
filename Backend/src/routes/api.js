@@ -11,6 +11,7 @@ const LocationController = require("../controller/LocationController");
 const SubCategoryController = require("../controller/SubcategoryController");
 const SubBrandController = require("../controller/SubBrandsController");
 const SubLocationController = require("../controller/SubLocationController");
+const SliderController = require("../controller/SliderController");
 
 //users
 router.get("/login/:email", UserController.login);
@@ -153,6 +154,20 @@ router.delete(
   "/delete-subLocation/:id",
   AdminVerification,
   SubLocationController.deleteSubLocation
+);
+// slider
+router.post("/create-slider", AdminVerification, SliderController.createSlider);
+router.get("/slider-list", SliderController.readAllSlider);
+router.patch(
+  "/update-slider/:id",
+  AdminVerification,
+  SliderController.updateSlider
+);
+
+router.delete(
+  "/delete-slider/:id",
+  AdminVerification,
+  SliderController.deleteSlider
 );
 
 module.exports = router;
