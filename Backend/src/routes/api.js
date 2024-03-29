@@ -8,6 +8,7 @@ const AdminVerification = require("../middleware/AdminVerification");
 const CategoryController = require("../controller/CategoryController");
 const BrandsController = require("../controller/BrandsController");
 const LocationController = require("../controller/LocationController");
+const SubCategoryController = require("../controller/SubcategoryController");
 
 //users
 router.get("/login/:email", UserController.login);
@@ -55,6 +56,26 @@ router.delete(
   "/delete-category/:id",
   AdminVerification,
   CategoryController.deleteCategory
+);
+
+//subCategory
+router.post(
+  "/create-subCategory",
+  AdminVerification,
+  SubCategoryController.createSubCategory
+);
+
+router.get("/subCategory-list", SubCategoryController.readAll);
+router.patch(
+  "/update-subCategory/:id",
+  AdminVerification,
+  SubCategoryController.updateCategory
+);
+
+router.delete(
+  "/delete-subCategory/:id",
+  AdminVerification,
+  SubCategoryController.deleteCategory
 );
 
 //Brands
