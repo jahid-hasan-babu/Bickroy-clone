@@ -14,6 +14,7 @@ const SubLocationController = require("../controller/SubLocationController");
 const SliderController = require("../controller/SliderController");
 const AboutController = require("../controller/AboutController");
 const FAQController = require("../controller/FAQController");
+const SellFastController = require("../controller/SellFastController");
 
 //users
 router.get("/login/:email", UserController.login);
@@ -195,5 +196,25 @@ router.post("/create-FAQ", AdminVerification, FAQController.createFAQ);
 router.get("/read-FAQ", FAQController.readFAQ);
 router.patch("/update-FAQ/:id", AdminVerification, FAQController.updateFAQ);
 router.delete("/delete-FAQ/:id", AdminVerification, FAQController.deleteFAQ);
+
+//sell fast
+router.post(
+  "/create-sellFast",
+  AdminVerification,
+  SellFastController.createSell
+);
+
+router.get("/read-sellFast", SellFastController.readSell);
+router.patch(
+  "/update-sellFast/:id",
+  AdminVerification,
+  SellFastController.updateSell
+);
+
+router.delete(
+  "/delete-sellFast/:id",
+  AdminVerification,
+  SellFastController.deleteSell
+);
 
 module.exports = router;
