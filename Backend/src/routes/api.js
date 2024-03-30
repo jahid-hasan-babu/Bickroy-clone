@@ -13,6 +13,7 @@ const SubBrandController = require("../controller/SubBrandsController");
 const SubLocationController = require("../controller/SubLocationController");
 const SliderController = require("../controller/SliderController");
 const AboutController = require("../controller/AboutController");
+const FAQController = require("../controller/FAQController");
 
 //users
 router.get("/login/:email", UserController.login);
@@ -189,5 +190,10 @@ router.delete(
   AdminVerification,
   AboutController.updateAbout
 );
+//FAQ
+router.post("/create-FAQ", AdminVerification, FAQController.createFAQ);
+router.get("/read-FAQ", FAQController.readFAQ);
+router.patch("/update-FAQ/:id", AdminVerification, FAQController.updateFAQ);
+router.delete("/delete-FAQ/:id", AdminVerification, FAQController.deleteFAQ);
 
 module.exports = router;
