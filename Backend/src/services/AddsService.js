@@ -70,14 +70,34 @@ const deleteAddByUserService = async (req) => {
     return {
       status: "fail",
       message: "Failed to delete add",
-      error: error.toString(),
     };
   }
 };
 
+const searchByKeywordService = async (req) => {
+  try {
+    let SearchRegex = { $regex: req.params.Keyword, $options: "i" };
+    let SearchParams = [
+      { categoryName: SearchRegex },
+      { subcategoryName: SearchRegex },
+      { condition: SearchRegex },
+    ];
+    let SearchQuery = { $or: SearchParams };
+    let MatchStage = { $match: SearchQuery };
+
+    let data = await AddModel.aggregate([MatchStage]);
+    return { status: "success", data: data };
+  } catch (error) {
+    return {
+      status: "fail",
+      message: "no data found",
+    };
+  }
+};
 module.exports = {
   createAddService,
   readAllAddService,
   readAllAddByUserService,
   deleteAddByUserService,
+  searchByKeywordService,
 };

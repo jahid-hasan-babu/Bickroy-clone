@@ -12,6 +12,7 @@ const SubCategoryController = require("../controller/SubcategoryController");
 const SubBrandController = require("../controller/SubBrandsController");
 const SubLocationController = require("../controller/SubLocationController");
 const SliderController = require("../controller/SliderController");
+const AboutController = require("../controller/AboutController");
 
 //users
 router.get("/login/:email", UserController.login);
@@ -31,6 +32,8 @@ router.post("/create-adds", AuthVerification, AddsController.createAdd);
 router.get("/read-adds", AddsController.readAllAdds);
 //read all adds for user who create
 router.get("/read-user-add", AuthVerification, AddsController.readUserAdd);
+router.get("/searchByKeyword/:Keyword", AddsController.searchByKeyword);
+
 router.delete(
   "/delete-user-add/:addId",
   AuthVerification,
@@ -170,6 +173,21 @@ router.delete(
   "/delete-slider/:id",
   AdminVerification,
   SliderController.deleteSlider
+);
+
+//About us
+router.post("/create-aboutUs", AdminVerification, AboutController.createAbout);
+router.get("/read-aboutUs", AboutController.readAbout);
+router.patch(
+  "/update-aboutUs/:id",
+  AdminVerification,
+  AboutController.updateAbout
+);
+
+router.delete(
+  "/delete-aboutUs/:id",
+  AdminVerification,
+  AboutController.updateAbout
 );
 
 module.exports = router;

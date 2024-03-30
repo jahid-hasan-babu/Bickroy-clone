@@ -3,6 +3,7 @@ const {
   readAllAddService,
   readAllAddByUserService,
   deleteAddByUserService,
+  searchByKeywordService,
 } = require("../services/AddsService");
 
 exports.createAdd = async (req, res) => {
@@ -22,5 +23,10 @@ exports.readUserAdd = async (req, res) => {
 
 exports.deleteAddByUser = async (req, res) => {
   let result = await deleteAddByUserService(req);
+  return res.status(200).json(result);
+};
+
+exports.searchByKeyword = async (req, res) => {
+  let result = await searchByKeywordService(req);
   return res.status(200).json(result);
 };
