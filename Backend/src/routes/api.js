@@ -15,6 +15,7 @@ const SliderController = require("../controller/SliderController");
 const AboutController = require("../controller/AboutController");
 const FAQController = require("../controller/FAQController");
 const SellFastController = require("../controller/SellFastController");
+const MembershipController = require("../controller/MemberShipController");
 
 //users
 router.get("/login/:email", UserController.login);
@@ -215,6 +216,25 @@ router.delete(
   "/delete-sellFast/:id",
   AdminVerification,
   SellFastController.deleteSell
+);
+//membership
+router.post(
+  "/create-membership",
+  AdminVerification,
+  MembershipController.createMembership
+);
+
+router.get("/read-membership", MembershipController.readMembership);
+router.patch(
+  "/update-membership/:id",
+  AdminVerification,
+  MembershipController.updateMembership
+);
+
+router.delete(
+  "/delete-membership/:id",
+  AdminVerification,
+  MembershipController.deleteMembership
 );
 
 module.exports = router;
