@@ -1,14 +1,14 @@
 import React from "react";
 import DashBoard from "../component/admin/DashBoard";
-import Adds from "../component/admin/Adds";
+import Slider from "../component/admin/Slider";
 
-const AddsPage = () => {
+const SliderPage = () => {
   return (
     <>
       <DashBoard />
-      <Adds />
+      <Slider />
     </>
   );
 };
 
-export default AddsPage;
+export default SliderPage;
