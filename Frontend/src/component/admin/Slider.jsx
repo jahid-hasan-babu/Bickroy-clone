@@ -1,7 +1,13 @@
 import React from "react";
 
+import AdminSkeleton from "../../skeleton/AdminSkeleton";
+
 const Slider = () => {
-  return <div>Slider</div>;
+  return (
+    <>
+      <AdminSkeleton />
+    </>
+  );
 };
 
 export default Slider;

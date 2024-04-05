@@ -1,19 +1,33 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { GiHamburgerMenu } from "react-icons/gi"; // Import hamburger menu icon
-import { AiOutlineClose } from "react-icons/ai"; // Import close icon
+import { AiOutlineClose } from "react-icons/ai";
+import { MdAccountCircle } from "react-icons/md"; // Import account circle icon
 import logo from "../../assets/img/logo.png";
+import UserStore from "../../store/UserStore";
 
 const AppNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const { isLogin } = UserStore();
 
   const toggleNavbar = () => {
     setIsOpen(!isOpen);
   };
 
+  useEffect(() => {
+    const checkLoginStatus = async () => {
+      const loggedIn = await isLogin();
+      setIsLoggedIn(loggedIn);
+    };
+
+    checkLoginStatus();
+  }, []);
+
   return (
     <>
-      <div className="bg-green-500">
+      <div className="bg-green-500 sticky top-0 z-50">
         <div className="navbar justify-between lg:mx-auto lg:max-w-6xl">
           <div>
             <Link to="/">
@@ -37,22 +51,29 @@ const AppNavbar = () => {
             } sm:flex sm:items-center transition duration-300`}
           >
             <Link
-              to="/adds"
+              to="/all-adds"
               className="font-bold text-white text-lg pr-5 block lg:inline-block mb-2 lg:mb-0"
             >
               All adds
             </Link>
             <Link
-              to="/login"
-              className="font-bold text-white text-lg pr-5 block lg:inline-block mb-2 lg:mb-0"
+              to={isLoggedIn ? "/my-account/settings" : "/login"} // Conditionally set the link destination based on login status
+              className="font-bold text-white text-lg pr-5 block lg:inline-block mb-2 lg:mb-0 flex items-center" // Add flex and items-center classes to center the icon vertically
             >
-              My Account
+              {isLoggedIn ? (
+                <div className="flex items-center">
+                  <MdAccountCircle className="mr-1" />
+                  My Account
+                </div>
+              ) : (
+                "Login"
+              )}
             </Link>
             <Link
-              to="/create-add"
+              to={isLoggedIn ? "/create-add" : "/login"} // Conditionally set the link destination based on login status
               className="font-bold text-white text-lg bg-yellow-500 p-3 rounded-md block sm:inline-block"
             >
-              Post Your Add
+              {isLoggedIn ? "Create Your Add" : " Create Your Add"}
             </Link>
           </div>
         </div>

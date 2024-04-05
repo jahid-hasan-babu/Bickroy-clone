@@ -1,9 +1,9 @@
 import React from "react";
-import AppNavbar from "./../component/layout/AppNavbar";
 import MyAccount from "../component/user/MyAccount";
+import AppNavbar from "../component/layout/AppNavbar";
 import Footer from "../component/layout/Footer";
 
-const ProfilePage = () => {
+const SettingsPage = () => {
   return (
     <>
       <AppNavbar />
@@ -13,4 +13,4 @@ const ProfilePage = () => {
   );
 };
 
-export default ProfilePage;
+export default SettingsPage;

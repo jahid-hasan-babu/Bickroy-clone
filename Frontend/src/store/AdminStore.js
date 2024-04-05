@@ -5,6 +5,9 @@ import axios from "axios";
 const BaseURL = `http://localhost:9000/api/v1`;
 
 const AdminStore = create((set) => ({
+  isLogin: () => {
+    return !!localStorage.getItem("token");
+  },
   AdminLoginData: { email: "", password: "" },
   setLoginFormData: (formData) => {
     set((state) => ({
@@ -21,8 +24,13 @@ const AdminStore = create((set) => ({
       );
 
       if (res && res.data && res.data.token) {
-        // Fixed token retrieval
+        // Set the token in localStorage
         localStorage.setItem("token", res.data.token);
+
+        // Remove the token from localStorage after 24 hours
+        setTimeout(() => {
+          localStorage.removeItem("token");
+        }, 24 * 60 * 60 * 1000); // 24 hours in milliseconds
       } else {
         throw new Error("Incorrect email or password");
       }

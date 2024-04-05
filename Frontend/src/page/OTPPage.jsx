@@ -1,16 +1,16 @@
 import React from "react";
 import AppNavbar from "./../component/layout/AppNavbar";
-import MyAccount from "../component/user/MyAccount";
 import Footer from "../component/layout/Footer";
+import OTPForm from "../component/user/OTPFrom";
 
-const ProfilePage = () => {
+const OTPPage = () => {
   return (
     <>
       <AppNavbar />
-      <MyAccount />
+      <OTPForm />
       <Footer />
     </>
   );
 };
 
-export default ProfilePage;
+export default OTPPage;

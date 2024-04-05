@@ -1,0 +1,8 @@
+@media (min-width: 200px) {
+  .custom-media-query {
+    margin-top: 50px;
+  }
+  .custom-text-design {
+    font-size: 30px;
+  }
+}

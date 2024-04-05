@@ -17,6 +17,13 @@ const AddStore = create((set) => ({
       set({ CategoryList: res.data["data"] });
     }
   },
+  AddsList: null,
+  AddsListRequest: async () => {
+    let res = await axios.get(`${BaseURL}/read-adds`);
+    if (res.data["status"] === "success") {
+      set({ AddsList: res.data["data"] });
+    }
+  },
 }));
 
 export default AddStore;

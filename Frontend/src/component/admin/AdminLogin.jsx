@@ -22,7 +22,7 @@ const AdminLogin = () => {
 
     try {
       await login(AdminLoginData.email, AdminLoginData.password); // Corrected: Pass email and password to login function
-      navigate("/admin-dashboard");
+      navigate("/admin-dashboard/adds");
     } catch (error) {
       toast.error("Failed to login. Please try again later.");
     }

@@ -1,7 +1,12 @@
 import React from "react";
+import AdminSkeleton from "./../../skeleton/AdminSkeleton";
 
 const Adds = () => {
-  return <div className="text-center">Adds fgvdsg</div>;
+  return (
+    <div>
+      <AdminSkeleton />
+    </div>
+  );
 };
 
 export default Adds;

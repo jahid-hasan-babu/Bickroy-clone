@@ -32,7 +32,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
       <ul>
         <li>
           <Link
-            to="/adds"
+            to="/admin-dashboard/adds"
             className="block py-2 px-4 text-gray-400 hover:bg-gray-700 hover:text-white"
           >
             Adds
@@ -40,7 +40,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
         </li>
         <li>
           <Link
-            to="/slider"
+            to="/admin-dashboard/slider"
             className="block py-2 px-4 text-gray-400 hover:bg-gray-700 hover:text-white"
           >
             Slider
