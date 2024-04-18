@@ -13,13 +13,15 @@ const DataSchema = Schema(
       trim: true,
       required: true,
     },
-    locationID: {
-      type: mongoose.Schema.Types.ObjectId,
+    locationName: {
+      type: String,
       trim: true,
+      required: true,
     },
-    subLocationID: {
-      type: mongoose.Schema.Types.ObjectId,
+    subLocationName: {
+      type: String,
       trim: true,
+      required: true,
     },
     phone: {
       type: String,

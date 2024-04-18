@@ -3,6 +3,7 @@ const {
   verifyOTPService,
   saveProfileService,
   deleteProfileService,
+  ReadProfileService,
 } = require("../services/UserService");
 
 exports.login = async (req, res) => {
@@ -48,5 +49,10 @@ exports.UpdateProfile = async (req, res) => {
 
 exports.deleteProfile = async (req, res) => {
   let result = await deleteProfileService(req);
+  return res.status(200).json(result);
+};
+
+exports.readProfile = async (req, res) => {
+  let result = await ReadProfileService(req);
   return res.status(200).json(result);
 };

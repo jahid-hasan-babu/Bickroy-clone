@@ -52,7 +52,6 @@ const verifyOTPService = async (req) => {
     return { status: "fail", message: "Invalid OTP" };
   }
 };
-
 const saveProfileService = async (req) => {
   try {
     let user_id = req.headers.user_id;
@@ -65,6 +64,16 @@ const saveProfileService = async (req) => {
     );
     return { status: "success", message: "Profile save success" };
   } catch (error) {
+    return { status: "fail", message: "Something went wrong" };
+  }
+};
+
+const ReadProfileService = async (req) => {
+  try {
+    let user_id = req.headers.user_id;
+    let result = await ProfileModel.find({ userID: user_id });
+    return { status: "success", data: result };
+  } catch (e) {
     return { status: "fail", message: "Something went wrong" };
   }
 };
@@ -86,4 +95,5 @@ module.exports = {
   verifyOTPService,
   saveProfileService,
   deleteProfileService,
+  ReadProfileService,
 };

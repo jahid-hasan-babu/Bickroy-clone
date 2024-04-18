@@ -6,6 +6,7 @@ import { IoBagAddSharp } from "react-icons/io5";
 import { FaPhoneAlt } from "react-icons/fa";
 import { FaHome } from "react-icons/fa";
 import { MdCreateNewFolder } from "react-icons/md";
+import ProfileFrom from "./ProfileFrom";
 
 const MyAccount = () => {
   return (
@@ -52,17 +53,7 @@ const MyAccount = () => {
               </li>
             </ul>
           </div>
-          <div className="md:mt-0 custom-media-query">
-            <div className="bg-black sm:pt-10 p-10 sm:mr-[0px]: md:mr-[500px] rounded-md text-yellow-500">
-              <div className="md:flex flex-col justify-center items-center">
-                <div>
-                  <h1 className="font-bold custom-text-design ">
-                    User settings
-                  </h1>
-                </div>
-              </div>
-            </div>
-          </div>
+          <ProfileFrom />
         </div>
       </div>
     </div>

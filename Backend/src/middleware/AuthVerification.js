@@ -1,12 +1,15 @@
 const { DecodeToken } = require("../utility/TokenHelper");
 
 module.exports = (req, res, next) => {
-  let token = req.headers["token"];
+  let token = req.headers["authorization"];
   if (!token) {
-    token = req.cookies["token"];
+    return res.status(401).json({ status: "fail", message: "Unauthorized" });
   }
 
-  let decoded = DecodeToken(token);
+  // Extract the token from the "Bearer {token}" format
+  const [, accessToken] = token.split(" ");
+
+  let decoded = DecodeToken(accessToken);
   if (decoded == null) {
     return res.status(401).json({ status: "fail", message: "Unauthorized" });
   } else {

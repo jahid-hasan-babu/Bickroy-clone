@@ -21,6 +21,7 @@ const MembershipController = require("../controller/MemberShipController");
 router.get("/login/:email", UserController.login);
 router.get("/verifyLogin/:email/:otp", UserController.verifyLogin);
 router.get("/logout", AuthVerification, UserController.UserLogout);
+router.get("/read-profile", AuthVerification, UserController.readProfile);
 router.post("/create-user", AuthVerification, UserController.createUser);
 router.post("/update-profile", AuthVerification, UserController.UpdateProfile);
 router.delete(

@@ -2,12 +2,14 @@ import { create } from "zustand";
 import { setEmail, getEmail, setCookie } from "../utility/utility";
 import axios from "axios";
 import Cookies from "js-cookie";
+
 const BaseURL = `http://localhost:9000/api/v1`;
 
 const UserStore = create((set) => ({
   isLogin: () => {
     return !!Cookies.get("token");
   },
+
   LoginFormData: { email: "" },
   LoginFormOnChange: (name, value) => {
     set((state) => ({
@@ -27,6 +29,7 @@ const UserStore = create((set) => ({
       },
     }));
   },
+
   isFormSubmit: false,
 
   UserOTPRequest: async (email) => {
@@ -52,6 +55,53 @@ const UserStore = create((set) => ({
       return true;
     } else {
       return false;
+    }
+  },
+
+  ProfileForm: {
+    name: "",
+    locationName: "",
+    subLocationName: "",
+  },
+
+  ProfileFormChange: (name, value) => {
+    set((state) => ({
+      ProfileForm: {
+        ...state.ProfileForm,
+        [name]: value,
+      },
+    }));
+  },
+
+  ProfileDetails: null,
+
+  ProfileDetailsRequest: async () => {
+    try {
+      let token = Cookies.get("token"); // Retrieve token from cookies
+      let res = await axios.get(`${BaseURL}/read-profile`, {
+        headers: { Authorization: `Bearer ${token}` }, // Include token in headers
+      });
+      if (res.data["data"].length > 0) {
+        set({ ProfileDetails: res.data["data"][0] });
+        set({ ProfileForm: res.data["data"][0] });
+      } else {
+        set({ ProfileDetails: [] });
+      }
+    } catch (e) {
+      console.error("Error fetching profile details:", e);
+    }
+  },
+
+  ProfileSaveRequest: async (PostBody) => {
+    try {
+      let token = Cookies.get("token"); // Retrieve token from cookies
+      set({ ProfileDetails: null });
+      let res = await axios.post(`${BaseURL}/update-profile`, PostBody, {
+        headers: { Authorization: `Bearer ${token}` }, // Include token in headers
+      });
+      return res.data["status"] === "success";
+    } catch (e) {
+      console.error("Error saving profile:", e);
     }
   },
 }));
