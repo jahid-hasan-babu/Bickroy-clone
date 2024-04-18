@@ -80,10 +80,8 @@ const ReadProfileService = async (req) => {
 
 const deleteProfileService = async (req) => {
   try {
-    let profile_id = req.headers.profile_id;
-    let reqBody = req.body;
-    reqBody._id = profile_id;
-    await ProfileModel.deleteOne(profile_id);
+    let user_id = req.headers.user_id;
+    await ProfileModel.deleteOne({ userID: user_id });
     return { status: "success", message: "Profile delete success" };
   } catch (error) {
     return { status: "fail", message: "Profile not found" };

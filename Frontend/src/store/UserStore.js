@@ -62,6 +62,7 @@ const UserStore = create((set) => ({
     name: "",
     locationName: "",
     subLocationName: "",
+    phone: "",
   },
 
   ProfileFormChange: (name, value) => {
@@ -94,14 +95,42 @@ const UserStore = create((set) => ({
 
   ProfileSaveRequest: async (PostBody) => {
     try {
-      let token = Cookies.get("token"); // Retrieve token from cookies
-      set({ ProfileDetails: null });
+      let token = Cookies.get("token");
+      set({ isFormSubmit: true });
       let res = await axios.post(`${BaseURL}/update-profile`, PostBody, {
-        headers: { Authorization: `Bearer ${token}` }, // Include token in headers
+        headers: { Authorization: `Bearer ${token}` },
       });
+      set({ isFormSubmit: false });
       return res.data["status"] === "success";
     } catch (e) {
       console.error("Error saving profile:", e);
+      set({ isFormSubmit: false });
+    }
+  },
+
+  ProfileDeleteRequest: async () => {
+    try {
+      let token = Cookies.get("token");
+
+      let res = await axios.delete(`${BaseURL}/delete-profile`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      return res.data["status"] === "success";
+    } catch (e) {
+      console.error("Error deleting profile:", e);
+    }
+  },
+  ProfileLogoutRequest: async () => {
+    try {
+      let token = Cookies.get("token");
+      let res = await axios.get(`${BaseURL}/logout`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      return res.data["status"] === "success";
+    } catch (e) {
+      console.error("Error deleting profile:", e);
     }
   },
 }));
