@@ -7,8 +7,12 @@ const {
 } = require("../services/AddsService");
 
 exports.createAdd = async (req, res) => {
-  let result = await createAddService(req);
-  return res.status(200).json(result);
+  try {
+    let result = await createAddService(req);
+    return res.status(200).json(result);
+  } catch (error) {
+    return res.status(500).json({ status: "fail", message: error.message });
+  }
 };
 
 exports.readAllAdds = async (req, res) => {

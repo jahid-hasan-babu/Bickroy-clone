@@ -1,15 +1,48 @@
 const AddModel = require("../model/AddModel");
+const cloudinary = require("../utility/cloudinary");
 
 const createAddService = async (req) => {
   try {
     let user_id = req.headers.user_id;
-    let reqBody = req.body;
-    reqBody.userID = user_id;
-    await AddModel.create(reqBody);
+    // let image = req.body.image; // Define image before using it
+    const result = await cloudinary.uploader.upload(req.file.path, {
+      folder: "adds",
+    });
+    let {
+      locationName,
+      subLocationName,
+      categoryName,
+      subcategoryName,
+      condition,
+      authenticity,
+      features,
+      phone,
+      userName,
+      description,
+      price,
+    } = req.body;
+    req.body.userID = user_id;
+    await AddModel.create({
+      locationName,
+      subLocationName,
+      categoryName,
+      subcategoryName,
+      condition,
+      authenticity,
+      features,
+      phone,
+      userName,
+      description,
+      price,
+      image: {
+        public_id: result.public_id,
+        url: result.secure_url,
+      },
+    });
 
     return { status: "success", message: "Data creation success" };
   } catch (error) {
-    return { status: "fail", message: "Data creation fail !" };
+    return { status: "fail", data: error };
   }
 };
 
@@ -37,10 +70,8 @@ const deleteAddByUserService = async (req) => {
     const user_id = req.headers.user_id; // Assuming user_id is sent in request headers
     const addId = req.params.addId;
 
-    // Find the add to check if it exists and if its userID matches the user_id
     const add = await AddModel.findOne({ _id: addId, userID: user_id });
 
-    // If the add doesn't exist or its userID doesn't match the user_id, return a failure response
     if (!add) {
       return {
         status: "fail",

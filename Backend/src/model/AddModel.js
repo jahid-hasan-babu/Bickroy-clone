@@ -7,29 +7,39 @@ const DataSchema = Schema(
       type: mongoose.Schema.Types.ObjectId,
       required: true,
     },
-    categoryID: {
-      type: mongoose.Schema.Types.ObjectId,
+    // categoryID: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   required: true,
+    // },
+    // subcategoryID: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   required: true,
+    // },
+    // brandID: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   required: true,
+    // },
+    // modelID: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   required: true,
+    // },
+    // locationID: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   required: true,
+    // },
+    // subLocationID: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   required: true,
+    // },
+    locationName: {
+      type: String,
       required: true,
+      trim: true,
     },
-    subcategoryID: {
-      type: mongoose.Schema.Types.ObjectId,
+    subLocationName: {
+      type: String,
       required: true,
-    },
-    brandID: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: true,
-    },
-    modelID: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: true,
-    },
-    locationID: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: true,
-    },
-    subLocationID: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: true,
+      trim: true,
     },
     categoryName: {
       type: String,
@@ -38,7 +48,7 @@ const DataSchema = Schema(
     },
     subcategoryName: {
       type: String,
-      required: true,
+      // required: true,
       trim: true,
     },
     condition: {
@@ -55,6 +65,16 @@ const DataSchema = Schema(
       type: String,
       trim: true,
     },
+    phone: {
+      type: String,
+      trim: true,
+      required: true,
+    },
+    userName: {
+      type: String,
+      trim: true,
+      required: true,
+    },
     description: {
       type: String,
       required: true,
@@ -65,15 +85,16 @@ const DataSchema = Schema(
       required: true,
       trim: true,
     },
-    approvedByAdmin: {
-      type: Boolean,
-      default: false,
+    image: {
+      public_id: {
+        type: String,
+        required: true,
+      },
+      url: {
+        type: String,
+        required: true,
+      },
     },
-    img1: { type: String, required: true },
-    img2: { type: String, required: true },
-    img3: { type: String, required: true },
-    img4: { type: String, required: true },
-    img5: { type: String, required: true },
   },
   { timestamps: true, versionKey: false }
 );
