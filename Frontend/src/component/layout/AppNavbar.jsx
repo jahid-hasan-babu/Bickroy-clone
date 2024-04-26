@@ -70,7 +70,7 @@ const AppNavbar = () => {
               )}
             </Link>
             <Link
-              to={isLoggedIn ? "/create-add" : "/login"}
+              to={isLoggedIn ? "/my-account/create-add" : "/login"}
               className="font-bold text-black text-lg bg-yellow-500 p-3 rounded-md block sm:inline-block"
             >
               {isLoggedIn ? "Create Your Add" : " Create Your Add"}

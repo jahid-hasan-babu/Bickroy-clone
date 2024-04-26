@@ -3,6 +3,7 @@ import toast, { Toaster } from "react-hot-toast";
 import UserSubmitButton from "./UserSubmitButton";
 import UserStore from "../../store/UserStore";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const ProfileForm = () => {
   let {
@@ -12,28 +13,69 @@ const ProfileForm = () => {
     ProfileSaveRequest,
     ProfileDeleteRequest,
     ProfileLogoutRequest,
+    divisions,
+    selectedDivision,
+    districts,
+    fetchDivisions,
+    fetchDistricts,
+    setSelectedDivision,
   } = UserStore();
 
   useEffect(() => {
     (async () => {
       await ProfileDetailsRequest();
+      await fetchDivisions();
     })();
   }, []);
 
+  const handleDivisionChange = async (division) => {
+    setSelectedDivision(division);
+    fetchDistricts(division);
+    ProfileFormChange("locationName", division);
+  };
+
   const Save = async () => {
-    let res = await ProfileSaveRequest(ProfileForm);
-    if (res) {
-      toast.success("Profile Updated");
-      await ProfileDetailsRequest();
+    const result = await Swal.fire({
+      title: "Do you want to save the changes?",
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: "Save",
+      denyButtonText: `Don't save`,
+    });
+
+    if (result.isConfirmed) {
+      let res = await ProfileSaveRequest(ProfileForm);
+      if (res) {
+        toast.success("Profile Updated");
+        await ProfileDetailsRequest();
+      }
+    } else if (result.isDenied) {
+      Swal.fire("Changes are not saved", "", "info");
     }
   };
+
   const handleDelete = async () => {
-    const success = await ProfileDeleteRequest();
-    if (success) {
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    });
+
+    if (result.isConfirmed) {
+      const success = await ProfileDeleteRequest();
+      if (success) {
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success",
+        });
+      }
       toast.success("Profile Deleted");
       resetForm();
-    } else {
-      toast.error("Failed to delete profile");
     }
   };
 
@@ -83,14 +125,20 @@ const ProfileForm = () => {
                 <label className="text-yellow-500 mr-5 pb-2">
                   Location Name :
                 </label>
-                <input
-                  value={ProfileForm.locationName}
-                  onChange={(e) => {
-                    ProfileFormChange("locationName", e.target.value);
-                  }}
-                  type="text"
+                <select
+                  value={selectedDivision}
+                  onChange={(e) => handleDivisionChange(e.target.value)}
                   className="input-field rounded-md p-1"
-                />
+                >
+                  <option key="default" value="">
+                    Select Division
+                  </option>
+                  {divisions.map((division) => (
+                    <option key={division._id} value={division.division}>
+                      {division.division}
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
 
@@ -98,14 +146,22 @@ const ProfileForm = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="p-2">
                 <label className="text-yellow-500">Sublocation Name :</label>
-                <input
+                <select
                   value={ProfileForm.subLocationName}
                   onChange={(e) => {
                     ProfileFormChange("subLocationName", e.target.value);
                   }}
-                  type="text"
                   className="input-field rounded-md p-1"
-                />
+                >
+                  <option key="default" value="">
+                    Select District
+                  </option>
+                  {districts.map((district, index) => (
+                    <option key={index} value={district}>
+                      {district}
+                    </option>
+                  ))}
+                </select>
               </div>
               <div className="p-2">
                 <label className="text-yellow-500">Phone:</label>

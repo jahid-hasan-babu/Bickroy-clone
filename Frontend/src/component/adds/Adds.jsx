@@ -26,10 +26,10 @@ const Adds = () => {
   };
 
   return (
-    <div className="bg-yellow-500">
+    <div className="bg-slate-300">
       <div className="container mx-auto   max-w-6xl">
         <div className="flex flex-col items-center py-10">
-          <h1 className="text-4xl font-bold text-center my-2 text-black">
+          <h1 className="text-4xl font-bold text-center my-5 text-black">
             All adds
           </h1>
 

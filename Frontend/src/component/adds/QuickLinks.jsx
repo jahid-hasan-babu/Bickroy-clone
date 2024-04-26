@@ -3,10 +3,8 @@ import { Link } from "react-router-dom";
 
 const QuickLinks = () => {
   return (
-    <div className="flex flex-col items-center py-10">
-      <h1 className="text-xl py-10 my-2 font-bold text-yellow-500">
-        Quick Links
-      </h1>
+    <div className="flex flex-col items-center bg-slate-300 py-10">
+      <h1 className="text-xl py-10 my-2 font-bold text-black">Quick Links</h1>
       <div className="grid grid-cols-1 mt-3 md:grid-cols-4 lg:grid-cols-5 gap-10">
         <div className="rounded-lg border text-yellow-500 border-gray-300 p-4 bg-black">
           <h1 className="font-bold ">Electronics</h1>

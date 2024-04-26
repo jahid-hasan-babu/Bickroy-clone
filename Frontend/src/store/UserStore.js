@@ -133,6 +133,32 @@ const UserStore = create((set) => ({
       console.error("Error deleting profile:", e);
     }
   },
+  divisions: [],
+  selectedDivision: "",
+  districts: [],
+  fetchDivisions: async () => {
+    try {
+      const response = await axios.get("https://bdapis.com/api/v1.1/divisions");
+      const divisionsData = response.data.data;
+      set({ divisions: divisionsData });
+    } catch (error) {
+      console.error("Error fetching divisions:", error);
+    }
+  },
+  fetchDistricts: async (division) => {
+    try {
+      const response = await axios.get(
+        `https://bdapis.com/api/v1.1/division/${division}`
+      );
+      const districtsData = response.data.data.map(
+        (district) => district.district
+      );
+      set({ districts: districtsData });
+    } catch (error) {
+      console.error("Error fetching districts:", error);
+    }
+  },
+  setSelectedDivision: (division) => set({ selectedDivision: division }),
 }));
 
 export default UserStore;
