@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 
 const ProfileForm = () => {
   let {
-    ProfileDetails,
     ProfileForm,
     ProfileFormChange,
     ProfileDetailsRequest,
@@ -47,21 +46,14 @@ const ProfileForm = () => {
   const navigate = useNavigate();
   const onLogout = async () => {
     try {
-      // Call the ProfileLogoutRequest to remove the token from cookies
       await ProfileLogoutRequest();
-
-      // Clear localStorage and sessionStorage
       localStorage.clear();
       sessionStorage.clear();
       document.cookie =
         "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-
-      // Navigate to the home page
       navigate("/");
     } catch (error) {
       console.error("Error during logout:", error);
-      // Handle errors here, such as displaying an error message to the user
-      // You can use toast or other methods to inform the user about the error
       toast.error("Failed to logout. Please try again later.");
     }
   };

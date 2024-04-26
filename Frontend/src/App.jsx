@@ -9,6 +9,7 @@ import LoginPage from "./page/LoginPage";
 import OTPPage from "./page/OTPPage";
 import SettingsPage from "./page/SettingsPage";
 import MyAddsPage from "./page/MyAddsPage";
+import CreateAddPage from "./page/CreateAddPage";
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
         <Route path="/otp" element={<OTPPage />} />
         <Route path="/my-account/settings" element={<SettingsPage />} />
         <Route path="/my-account/my-adds" element={<MyAddsPage />} />
+        <Route path="/my-account/create-add" element={<CreateAddPage />} />
         <Route path="/admin-login" element={<AdminPage />} />
         <Route path="/admin-dashboard/adds" element={<AddsPage />} />
         <Route path="/admin-dashboard/slider" element={<SliderPage />} />

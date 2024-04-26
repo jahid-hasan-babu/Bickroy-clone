@@ -12,11 +12,11 @@ const Categories = () => {
     return <CategoriesSkeleton />;
   }
   return (
-    <div className="flex flex-col items-center py-10 bg-slate-100">
-      <h1 className="text-4xl font-bold text-center my-2 text-green-500">
+    <div className="flex flex-col items-center py-10 bg-black">
+      <h1 className="text-4xl font-bold text-center my-2 text-yellow-500">
         Top Categories
       </h1>
-      <p className="md:text-lg sm:text-sm font-bold mb-5 text-center  text-green-500">
+      <p className="md:text-lg sm:text-sm font-bold mb-5 text-center  text-yellow-500">
         Explore a World of Choices Across Our Most Popular <br />
         Shopping Categories
       </p>
@@ -24,13 +24,13 @@ const Categories = () => {
         {CategoryList.map((item, i) => {
           return (
             <div className="text-center p-2" key={i}>
-              <div className="rounded-lg border border-gray-300 p-4">
+              <div className="rounded-lg border border-yellow-300 p-4">
                 <div
                   className="flex items-center justify-between"
                   style={{ width: "200px", height: "100px" }}
                 >
                   <img className="w-full h-full" src={item.image} alt="image" />
-                  <div className="p-5">
+                  <div className="p-5 text-yellow-500">
                     <p>{item.categoryName}</p>
                   </div>
                 </div>

@@ -3,7 +3,6 @@ import "../../assets/css/style.css";
 import { Link } from "react-router-dom";
 import { IoSettings } from "react-icons/io5";
 import { IoBagAddSharp } from "react-icons/io5";
-import { FaPhoneAlt } from "react-icons/fa";
 import { FaHome } from "react-icons/fa";
 import { MdCreateNewFolder } from "react-icons/md";
 import ProfileFrom from "./ProfileFrom";
@@ -35,12 +34,11 @@ const MyAccount = () => {
               </li>
 
               <li className="flex items-center py-5">
-                <FaPhoneAlt />
-                <Link className="pl-3 font-bold text-xl ">Phone</Link>
-              </li>
-              <li className="flex items-center py-5">
                 <MdCreateNewFolder />
-                <Link to="/create-add" className="pl-3 font-bold text-xl ">
+                <Link
+                  to="/my-account/create-add"
+                  className="pl-3 font-bold text-xl "
+                >
                   Create Add
                 </Link>
               </li>

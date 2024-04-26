@@ -27,8 +27,8 @@ const AppNavbar = () => {
 
   return (
     <>
-      <div className="bg-green-500 sticky top-0 z-50">
-        <div className="navbar justify-between lg:mx-auto lg:max-w-6xl">
+      <div className="bg-black sticky top-0 z-50 shadow-md">
+        <div className="navbar justify-between lg:mx-auto  lg:max-w-6xl">
           <div>
             <Link to="/">
               <img className="w-24 lg:w-[15%]" src={logo} alt="logo" />
@@ -38,9 +38,9 @@ const AppNavbar = () => {
           <div className="sm:hidden">
             <button onClick={toggleNavbar} className="focus:outline-none">
               {isOpen ? (
-                <AiOutlineClose className="text-white text-2xl" />
+                <AiOutlineClose className="text-yellow-500 text-2xl" />
               ) : (
-                <GiHamburgerMenu className="text-white text-2xl" />
+                <GiHamburgerMenu className="text-yellow-500 text-2xl" />
               )}
             </button>
           </div>
@@ -52,13 +52,13 @@ const AppNavbar = () => {
           >
             <Link
               to="/all-adds"
-              className="font-bold text-white text-lg pr-5 block lg:inline-block mb-2 lg:mb-0"
+              className="font-bold text-yellow-500 text-lg pr-5 block lg:inline-block mb-2 lg:mb-0"
             >
               All adds
             </Link>
             <Link
-              to={isLoggedIn ? "/my-account/settings" : "/login"} // Conditionally set the link destination based on login status
-              className="font-bold text-white text-lg pr-5 block lg:inline-block mb-2 lg:mb-0 flex items-center" // Add flex and items-center classes to center the icon vertically
+              to={isLoggedIn ? "/my-account/settings" : "/login"}
+              className="font-bold text-yellow-500 text-lg pr-5  lg:inline-block mb-2 lg:mb-0 flex items-center"
             >
               {isLoggedIn ? (
                 <div className="flex items-center">
@@ -70,8 +70,8 @@ const AppNavbar = () => {
               )}
             </Link>
             <Link
-              to={isLoggedIn ? "/create-add" : "/login"} // Conditionally set the link destination based on login status
-              className="font-bold text-white text-lg bg-yellow-500 p-3 rounded-md block sm:inline-block"
+              to={isLoggedIn ? "/create-add" : "/login"}
+              className="font-bold text-black text-lg bg-yellow-500 p-3 rounded-md block sm:inline-block"
             >
               {isLoggedIn ? "Create Your Add" : " Create Your Add"}
             </Link>

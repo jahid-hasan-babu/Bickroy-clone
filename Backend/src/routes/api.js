@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const upload = require("../middleware/multer");
 const AuthVerification = require("../middleware/AuthVerification");
 const UserController = require("../controller/UserController");
 const AddsController = require("../controller/AddsController");
@@ -31,7 +32,7 @@ router.delete(
 );
 
 //adds
-router.post("/create-adds", AuthVerification, AddsController.createAdd);
+router.post("/upload", AuthVerification, upload, AddsController.createAdd);
 //read all adds public
 router.get("/read-adds", AddsController.readAllAdds);
 //read all adds for user who create

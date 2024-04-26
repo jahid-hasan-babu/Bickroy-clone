@@ -1,13 +1,40 @@
 const AddModel = require("../model/AddModel");
 const cloudinary = require("../utility/cloudinary");
 
+const uploadToCloudinary = async (file) => {
+  try {
+    // Upload the image to Cloudinary
+    const result = await cloudinary.uploader.upload(file.path, {
+      folder: "image", // Optional: Specify the folder where you want to store the image
+    });
+
+    // Return the uploaded image details
+    return {
+      public_id: result.public_id,
+      url: result.secure_url,
+      format: result.format,
+      width: result.width,
+      height: result.height,
+      // Add more details as needed
+    };
+  } catch (error) {
+    console.error("Error uploading image to Cloudinary:", error);
+    throw error; // Throw the error to handle it in the calling function
+  }
+};
+
 const createAddService = async (req) => {
   try {
     let user_id = req.headers.user_id;
-    // let image = req.body.image; // Define image before using it
-    const result = await cloudinary.uploader.upload(req.file.path, {
-      folder: "adds",
-    });
+
+    // Check if file is included in the request
+    if (!req.file) {
+      return { status: "fail", message: "No file uploaded" };
+    }
+
+    // Upload file to Cloudinary
+    const imageDetails = await uploadToCloudinary(req.file);
+
     let {
       locationName,
       subLocationName,
@@ -21,6 +48,8 @@ const createAddService = async (req) => {
       description,
       price,
     } = req.body;
+
+    // Use imageDetails returned by uploadToCloudinary
     req.body.userID = user_id;
     await AddModel.create({
       locationName,
@@ -35,14 +64,19 @@ const createAddService = async (req) => {
       description,
       price,
       image: {
-        public_id: result.public_id,
-        url: result.secure_url,
+        // Use imageDetails to set image field
+        public_id: imageDetails.public_id,
+        url: imageDetails.url,
+        format: imageDetails.format,
+        width: imageDetails.width,
+        height: imageDetails.height,
       },
     });
 
     return { status: "success", message: "Data creation success" };
   } catch (error) {
-    return { status: "fail", data: error };
+    console.error("Error during data creation:", error);
+    return { status: "fail", message: "Error during data creation", error };
   }
 };
 

@@ -1,12 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import play from "../../assets/img/play.png";
-import app from "../../assets/img/app.png";
 
 const Footer = () => {
   return (
-    <div className="bg-neutral">
-      <footer className="lg:mx-auto lg:max-w-6xl footer p-7  text-neutral-content">
+    <div className="bg-black">
+      <footer className="lg:mx-auto lg:max-w-6xl footer p-7 text-yellow-500 ">
         <nav>
           <h6 className="footer-title">More from Bikroy</h6>
           <Link to="/sell-fast" className="link link-hover">
@@ -47,7 +45,7 @@ const Footer = () => {
         </nav>
       </footer>
       <div className=" py-3 text-center">
-        <p className="text-white bodySmal">
+        <p className="text-yellow-500 bodySmal">
           &copy; Jahid Hasan - All Rights Reserved
         </p>
       </div>
