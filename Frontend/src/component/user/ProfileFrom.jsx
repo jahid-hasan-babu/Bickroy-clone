@@ -86,17 +86,31 @@ const ProfileForm = () => {
     ProfileFormChange("phone", "");
   };
   const navigate = useNavigate();
+
   const onLogout = async () => {
-    try {
-      await ProfileLogoutRequest();
-      localStorage.clear();
-      sessionStorage.clear();
-      document.cookie =
-        "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-      navigate("/");
-    } catch (error) {
-      console.error("Error during logout:", error);
-      toast.error("Failed to logout. Please try again later.");
+    const logoutConfirmation = await Swal.fire({
+      title: "Are you sure?",
+      text: "You will be logged out.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, log out",
+    });
+
+    if (logoutConfirmation.isConfirmed) {
+      try {
+        await ProfileLogoutRequest();
+        localStorage.clear();
+        sessionStorage.clear();
+        document.cookie =
+          "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        Swal.fire("Logged Out!", "", "success");
+        navigate("/");
+      } catch (error) {
+        console.error("Error during logout:", error);
+        Swal.fire("Failed to logout", "Please try again later.", "error");
+      }
     }
   };
 
