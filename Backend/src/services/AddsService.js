@@ -1,41 +1,34 @@
 const AddModel = require("../model/AddModel");
 const cloudinary = require("../utility/cloudinary");
 
-const uploadToCloudinary = async (file) => {
-  try {
-    // Upload the image to Cloudinary
-    const result = await cloudinary.uploader.upload(file.path, {
-      folder: "image", // Optional: Specify the folder where you want to store the image
-    });
+// const uploadToCloudinary = async (file) => {
+//   try {
+//     // Upload the image to Cloudinary
+//     const result = await cloudinary.uploader.upload(file.path, {
+//       folder: "image", // Optional: Specify the folder where you want to store the image
+//     });
 
-    // Return the uploaded image details
-    return {
-      public_id: result.public_id,
-      url: result.secure_url,
-      format: result.format,
-      width: result.width,
-      height: result.height,
-      // Add more details as needed
-    };
-  } catch (error) {
-    console.error("Error uploading image to Cloudinary:", error);
-    throw error; // Throw the error to handle it in the calling function
-  }
-};
+//     // Return the uploaded image details
+//     return {
+//       public_id: result.public_id,
+//       url: result.secure_url,
+//       format: result.format,
+//       width: result.width,
+//       height: result.height,
+//       // Add more details as needed
+//     };
+//   } catch (error) {
+//     console.error("Error uploading image to Cloudinary:", error);
+//     throw error; // Throw the error to handle it in the calling function
+//   }
+// };
 
 const createAddService = async (req) => {
+  // Retrieve user_id from headers
+  const user_id = req.headers.user_id;
   try {
-    let user_id = req.headers.user_id;
-
-    // Check if file is included in the request
-    if (!req.file) {
-      return { status: "fail", message: "No file uploaded" };
-    }
-
-    // Upload file to Cloudinary
-    const imageDetails = await uploadToCloudinary(req.file);
-
-    let {
+    // Extract data from request
+    const {
       locationName,
       subLocationName,
       categoryName,
@@ -47,11 +40,28 @@ const createAddService = async (req) => {
       userName,
       description,
       price,
+      image,
     } = req.body;
 
-    // Use imageDetails returned by uploadToCloudinary
-    req.body.userID = user_id;
-    await AddModel.create({
+    // Validate required fields
+    if (!locationName || !categoryName || !price || !user_id) {
+      throw new Error("Missing required fields");
+    }
+
+    // Upload image if provided
+    let imageUrl = null;
+    if (image) {
+      const uploadRes = await cloudinary.uploader.upload(image, {
+        upload_preset: "addsImage",
+      });
+      if (!uploadRes || !uploadRes.secure_url) {
+        throw new Error("Image upload failed");
+      }
+      imageUrl = uploadRes.secure_url;
+    }
+
+    // Create new add document
+    const add = new AddModel({
       locationName,
       subLocationName,
       categoryName,
@@ -63,20 +73,24 @@ const createAddService = async (req) => {
       userName,
       description,
       price,
-      image: {
-        // Use imageDetails to set image field
-        public_id: imageDetails.public_id,
-        url: imageDetails.url,
-        format: imageDetails.format,
-        width: imageDetails.width,
-        height: imageDetails.height,
-      },
+      image: imageUrl,
+      userID: user_id,
     });
 
-    return { status: "success", message: "Data creation success" };
+    // Save add document
+    const savedAdd = await add.save();
+
+    return {
+      status: "success",
+      message: "Data created successfully",
+      data: savedAdd,
+    };
   } catch (error) {
     console.error("Error during data creation:", error);
-    return { status: "fail", message: "Error during data creation", error };
+    return {
+      status: "fail",
+      message: error.message || "Error during data creation",
+    };
   }
 };
 

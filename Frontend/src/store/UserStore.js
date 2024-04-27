@@ -39,22 +39,37 @@ const UserStore = create((set) => ({
     set({ isFormSubmit: false });
     return res.data["status"] === "success";
   },
-
   VerifyLoginRequest: async (otp) => {
     set({ isFormSubmit: true });
     let email = getEmail();
-    let res = await axios.get(`${BaseURL}/verifyLogin/${email}/${otp}`);
-    set({ isFormSubmit: false });
 
-    if (res.data.status === "success") {
-      const token = res.data.token;
-      const expiresIn = res.data.expiresIn;
-      const expirationTime = new Date().getTime() + expiresIn * 1000;
+    try {
+      // Make the request to verify login with OTP
+      let res = await axios.get(`${BaseURL}/verifyLogin/${email}/${otp}`);
 
-      setCookie("token", token, expirationTime);
-      return true;
-    } else {
+      if (res.data.status === "success") {
+        // If login is successful, extract token and expiresIn from response
+        const { token, expiresIn } = res.data;
+
+        // Calculate expiration time based on expiresIn received from the server
+        const expirationTime = new Date().getTime() + expiresIn * 1000;
+
+        // Set token cookie with expiration time set to far future
+        document.cookie = `token=${token}; expires=${new Date(
+          expirationTime
+        ).toUTCString()}; path=/; max-age=31536000`;
+
+        // Return true to indicate successful login
+        return true;
+      } else {
+        // Return false to indicate unsuccessful login
+        return false;
+      }
+    } catch (error) {
       return false;
+    } finally {
+      // Ensure that isFormSubmit flag is set to false regardless of the outcome
+      set({ isFormSubmit: false });
     }
   },
 

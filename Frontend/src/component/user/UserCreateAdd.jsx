@@ -1,15 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import UserSubmitButton from "./UserSubmitButton";
 import CreateAddsStore from "../../store/CreateAddsStore";
 
 const CreateAddForm = () => {
   const { addForm, addFormChange, saveAddRequest } = CreateAddsStore();
+  const [imagePreview, setImagePreview] = useState(null);
+
+  // Function to handle image change
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    TransformFile(file);
+    addFormChange("image", file);
+  };
 
   // Function to handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await saveAddRequest();
+    const res = await saveAddRequest(addForm);
     if (res.status === "success") {
       toast.success("Add Created Successfully");
     } else {
@@ -17,10 +25,30 @@ const CreateAddForm = () => {
     }
   };
 
-  // Function to handle image change
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    addFormChange("image", file);
+  const TransformFile = (file) => {
+    return new Promise((resolve, reject) => {
+      if (!file) {
+        addFormChange("image", "");
+        setImagePreview(null); // Clear image preview
+        resolve();
+        return;
+      }
+
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        const imageData = reader.result;
+        addFormChange("image", imageData);
+        setImagePreview(imageData); // Set image preview
+        resolve();
+      };
+
+      reader.onerror = (error) => {
+        reject(error);
+      };
+
+      reader.readAsDataURL(file);
+    });
   };
 
   return (
@@ -104,6 +132,22 @@ const CreateAddForm = () => {
               placeholder="User Name"
               className="input-field rounded-md p-1 mb-4"
             />
+            {/* User Name */}
+            <input
+              value={addForm.condition}
+              onChange={(e) => addFormChange("condition", e.target.value)}
+              type="text"
+              placeholder="Condition"
+              className="input-field rounded-md p-1 mb-4"
+            />
+            {/* User Name */}
+            <input
+              value={addForm.authenticity}
+              onChange={(e) => addFormChange("authenticity", e.target.value)}
+              type="text"
+              placeholder="Authenticity"
+              className="input-field rounded-md p-1 mb-4"
+            />
             {/* Image upload */}
             <input
               type="file"
@@ -112,6 +156,14 @@ const CreateAddForm = () => {
               onChange={handleImageChange}
               className="input-field rounded-md p-1 mb-4"
             />
+            {imagePreview && (
+              <img
+                src={imagePreview}
+                alt="Image Preview"
+                className="rounded-md mb-4"
+                style={{ maxWidth: "100%", maxHeight: "200px" }}
+              />
+            )}
             {/* Submit button */}
             <div className="flex justify-end mt-8">
               <UserSubmitButton

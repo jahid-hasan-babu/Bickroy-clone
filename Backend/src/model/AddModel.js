@@ -53,12 +53,10 @@ const DataSchema = Schema(
     },
     condition: {
       type: String,
-      required: true,
       trim: true,
     },
     authenticity: {
       type: String,
-      required: true,
       trim: true,
     },
     features: {
@@ -86,14 +84,8 @@ const DataSchema = Schema(
       trim: true,
     },
     image: {
-      public_id: {
-        type: String,
-        required: true,
-      },
-      url: {
-        type: String,
-        required: true,
-      },
+      type: Object,
+      required: true,
     },
   },
   { timestamps: true, versionKey: false }

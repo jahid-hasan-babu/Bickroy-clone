@@ -1,7 +1,8 @@
 import Cookies from "js-cookie";
-const BaseURL = `http://localhost:9000/api/v1`;
 import { create } from "zustand";
 import axios from "axios";
+
+const BaseURL = `http://localhost:9000/api/v1`;
 
 const CreateAddsStore = create((set) => ({
   // Define initial state
@@ -17,7 +18,7 @@ const CreateAddsStore = create((set) => ({
     userName: "",
     description: "",
     price: "",
-    image: null, // Initialize image property
+    image: "", // Initialize image property
   },
 
   // Function to update form field values
@@ -31,38 +32,28 @@ const CreateAddsStore = create((set) => ({
   },
 
   // Function to save add data
-  saveAddRequest: async () => {
+  saveAddRequest: async (formData) => {
     try {
       const token = Cookies.get("token");
-      const formDataToSend = new FormData();
+      const user_id = Cookies.get("user_id"); // Assuming user_id is stored in a cookie
 
-      // Append form data to FormData object
-      set((state) => {
-        for (const key in state.addForm) {
-          formDataToSend.append(key, state.addForm[key]);
-        }
-
-        // Ensure that the image file is attached to the FormData
-        if (state.addForm.image) {
-          formDataToSend.append("image", state.addForm.image);
-        }
-
-        return state;
-      });
+      // Merge form data with additional fields
+      const requestData = {
+        ...formData,
+        user_id: user_id, // Add user_id to the request data
+      };
 
       // Send POST request to backend
-      await axios.post(`${BaseURL}/upload`, formDataToSend, {
+      const response = await axios.post(`${BaseURL}/create-add`, requestData, {
         headers: {
-          "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,
         },
       });
 
-      // Reset the form after successful submission
-      set({ addForm: {} }); // Reset to an empty object
-      return { status: "success" };
+      return { status: "success", data: response.data.data };
     } catch (error) {
       console.error("Error:", error);
+      set({ isFormSubmit: false });
       return { status: "fail", message: "Failed to create add" };
     }
   },

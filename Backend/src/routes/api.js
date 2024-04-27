@@ -32,7 +32,7 @@ router.delete(
 );
 
 //adds
-router.post("/upload", AuthVerification, upload, AddsController.createAdd);
+router.post("/create-add", AuthVerification, AddsController.createAdd);
 //read all adds public
 router.get("/read-adds", AddsController.readAllAdds);
 //read all adds for user who create
