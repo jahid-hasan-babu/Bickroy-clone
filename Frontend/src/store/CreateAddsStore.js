@@ -30,7 +30,7 @@ const CreateAddsStore = create((set) => ({
       },
     }));
   },
-
+  isFormSubmit: false,
   // Function to save add data
   saveAddRequest: async (formData) => {
     try {
@@ -42,17 +42,17 @@ const CreateAddsStore = create((set) => ({
         ...formData,
         user_id: user_id, // Add user_id to the request data
       };
-
+      set({ isFormSubmit: true });
       // Send POST request to backend
       const response = await axios.post(`${BaseURL}/create-add`, requestData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
+      set({ isFormSubmit: false });
 
       return { status: "success", data: response.data.data };
     } catch (error) {
-      console.error("Error:", error);
       set({ isFormSubmit: false });
       return { status: "fail", message: "Failed to create add" };
     }
