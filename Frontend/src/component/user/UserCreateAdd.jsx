@@ -3,14 +3,12 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import CreateAddsStore from "../../store/CreateAddsStore";
 import UserStore from "../../store/UserStore";
-import { useNavigate } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
-import UserSubmitButton from "./UserSubmitButton";
-import Spinner from "./Spinner"; // Assuming you have a Spinner component
+import AddSubmitButton from "../user/UserSubmitButton";
+// import { useNavigate } from "react-router-dom";
 
 const CreateAddForm = () => {
-  const { addForm, addFormChange, saveAddRequest, isFormSubmit } =
-    CreateAddsStore();
+  const { addForm, addFormChange, saveAddRequest } = CreateAddsStore();
   let {
     divisions,
     selectedDivision,
@@ -20,7 +18,7 @@ const CreateAddForm = () => {
     setSelectedDivision,
   } = UserStore();
   const [imagePreview, setImagePreview] = useState(null);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   //for division and district call
   useEffect(() => {
     (async () => {
@@ -96,7 +94,7 @@ const CreateAddForm = () => {
       if (res.status === "success") {
         toast.success("Add Created Successfully");
         resetForm(); // Reset form fields
-        navigate("/my-account/my-adds"); // Navigate to my-adds page
+        // navigate("/my-account/my-adds"); // Navigate to my-adds page
       } else {
         toast.error("Failed to create add");
       }
@@ -300,17 +298,12 @@ const CreateAddForm = () => {
                 style={{ maxWidth: "100%", maxHeight: "200px" }}
               />
             )}
-            {/* Submit button */}
-            {isFormSubmit ? (
-              <Spinner /> // Display spinner if form is being submitted
-            ) : (
-              <UserSubmitButton
-                onClick={handleSubmit}
-                submit={false}
-                className="btn w-full md:w-80% font-bold text-lg border-none outline-none bg-yellow-500 text-black hover:text-white hover:bg-yellow-700 py-2 px-4 rounded-md"
-                text="Save"
-              />
-            )}
+            <AddSubmitButton
+              onClick={handleSubmit}
+              submit={false}
+              className="btn w-full md:w-80% font-bold text-lg border-none outline-none bg-yellow-500 text-black hover:text-white hover:bg-yellow-700 py-2 px-4 rounded-md"
+              text="Save"
+            />
           </form>
         </div>
       </div>

@@ -5,6 +5,7 @@ import { IoSettings } from "react-icons/io5";
 import { IoBagAddSharp } from "react-icons/io5";
 import { FaHome } from "react-icons/fa";
 import { MdCreateNewFolder } from "react-icons/md";
+import AddList from "./AddList";
 
 const MyAdds = () => {
   return (
@@ -51,15 +52,7 @@ const MyAdds = () => {
                 </li>
               </ul>
             </div>
-            <div className="md:mt-0 custom-media-query">
-              <div className="bg-black sm:pt-10 p-10 sm:mr-[0px]: md:mr-[500px] rounded-md text-yellow-500">
-                <div className="md:flex flex-col justify-center items-center">
-                  <div>
-                    <h1 className="font-bold custom-text-design ">My Adds</h1>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <AddList />
           </div>
         </div>
       </div>

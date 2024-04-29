@@ -30,6 +30,22 @@ const CreateAddsStore = create((set) => ({
       },
     }));
   },
+  UserAddsList: null,
+  UserAddListRequest: async () => {
+    try {
+      const token = Cookies.get("token");
+      const response = await axios.get(`${BaseURL}/read-user-add`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (response.data.status === "success") {
+        set({ UserAddsList: response.data.data });
+      }
+    } catch (error) {
+      console.error("Error fetching user adds:", error);
+    }
+  },
   isFormSubmit: false,
   // Function to save add data
   saveAddRequest: async (formData) => {
