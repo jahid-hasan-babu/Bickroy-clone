@@ -81,7 +81,7 @@ const ProfileForm = () => {
 
   const resetForm = () => {
     ProfileFormChange("name", "");
-    ProfileFormChange("locationName", "");
+    setSelectedDivision("");
     ProfileFormChange("subLocationName", "");
     ProfileFormChange("phone", "");
   };
