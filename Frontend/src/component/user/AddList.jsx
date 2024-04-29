@@ -4,9 +4,11 @@ import AdminSkeleton from "./../../skeleton/AdminSkeleton";
 import Pagination from "react-js-pagination";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { FiEdit } from "react-icons/fi";
+import Swal from "sweetalert2";
 
 const AddList = () => {
-  const { UserAddsList, UserAddListRequest } = CreateAddsStore();
+  const { UserAddsList, UserAddListRequest, deleteAddRequest } =
+    CreateAddsStore();
   const [currentPage, setCurrentPage] = useState(
     parseInt(sessionStorage.getItem("activePage")) || 1
   );
@@ -34,6 +36,29 @@ const AddList = () => {
     sessionStorage.setItem("activePage", pageNumber); // Store the active page in sessionStorage
   };
 
+  // Delete function
+  const onDelete = async (userId, addId) => {
+    // Use SweetAlert to confirm the delete action
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        // If confirmed, proceed with the delete request
+        await deleteAddRequest(userId, addId);
+        // Show success message
+        Swal.fire("Deleted!", "Your file has been deleted.", "success");
+        // Reload data after deletion
+        await UserAddListRequest();
+      }
+    });
+  };
+
   return (
     <div className="container mx-auto items-center my-8 px-4">
       <div className="max-w-full md:max-w-4xl mx-auto">
@@ -50,7 +75,7 @@ const AddList = () => {
               <div className="overflow-x-auto">
                 <table className="min-w-full border-collapse ">
                   <thead>
-                    <tr>
+                    <tr className="text-center items-center">
                       <th className="text-left px-4 py-2 ">Image</th>
                       <th className="text-left px-4 py-2">Category</th>
                       <th className="text-left px-4 py-2">Features</th>
@@ -69,18 +94,25 @@ const AddList = () => {
                             className="w-[50px] h-[50px] md:w-[80px] md:h-[80px] rounded-full"
                           />
                         </td>
-                        <td className="px-4 py-2 ">{item.categoryName}</td>
-                        <td className="px-4 py-2">{item.features}</td>
-                        <td className="px-4 py-2">{item.price}</td>
+                        <td className="px-4 py-2 text-center">
+                          {item.categoryName}
+                        </td>
+                        <td className="px-4 py-2 text-center">
+                          {item.features}
+                        </td>
+                        <td className="px-4 py-2 text-center">{item.price}</td>
 
-                        <td className="px-4 py-2">
+                        <td className="px-4 py-2 text-center">
                           {new Date(item.createdAt).toLocaleDateString()}
                         </td>
-                        <td className="px-4 py-2 text-3xl">
-                          <button className="text-green-500 pr-3">
+                        <td className="px-4 py-2 text-center text-2xl">
+                          <button className="text-green-500 pr-2">
                             <FiEdit />
                           </button>
-                          <button className="text-red-500">
+                          <button
+                            className="text-red-500"
+                            onClick={() => onDelete(item.userId, item["_id"])} // Pass both userId and addId
+                          >
                             <RiDeleteBin6Line />
                           </button>
                         </td>

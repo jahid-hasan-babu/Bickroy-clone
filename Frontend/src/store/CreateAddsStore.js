@@ -73,6 +73,32 @@ const CreateAddsStore = create((set) => ({
       return { status: "fail", message: "Failed to create add" };
     }
   },
+
+  deleteAddRequest: async (userId, addId) => {
+    try {
+      const token = Cookies.get("token");
+      const response = await axios.delete(
+        `${BaseURL}/delete-user-add/${addId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (response.data.status === "success") {
+        // Update UserAddsList after successful deletion
+        set((state) => ({
+          UserAddsList: state.UserAddsList.filter((item) => item.id !== addId),
+        }));
+        return { status: "success", message: "Add deleted successfully" };
+      } else {
+        return { status: "fail", message: "Failed to delete add" };
+      }
+    } catch (error) {
+      console.error("Error deleting user add:", error);
+      return { status: "error", message: "Error deleting add" };
+    }
+  },
 }));
 
 export default CreateAddsStore;
