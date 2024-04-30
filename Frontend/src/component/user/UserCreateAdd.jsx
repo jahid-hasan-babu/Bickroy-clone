@@ -4,12 +4,19 @@ import "react-toastify/dist/ReactToastify.css";
 import CreateAddsStore from "../../store/CreateAddsStore";
 import UserStore from "../../store/UserStore";
 import { Toaster } from "react-hot-toast";
-import AddSubmitButton from "../user/UserSubmitButton";
-// import { useNavigate } from "react-router-dom";
+import AddSubmitButton from "../user/AddSubmitButton";
+import { useNavigate } from "react-router-dom";
 
 const CreateAddForm = () => {
-  const { addForm, addFormChange, saveAddRequest } = CreateAddsStore();
-  let {
+  const navigate = useNavigate();
+  const {
+    addForm,
+    addFormChange,
+    saveAddRequest,
+    addRequestById,
+    updateAddRequest,
+  } = CreateAddsStore();
+  const {
     divisions,
     selectedDivision,
     districts,
@@ -18,65 +25,87 @@ const CreateAddForm = () => {
     setSelectedDivision,
   } = UserStore();
   const [imagePreview, setImagePreview] = useState(null);
-  // const navigate = useNavigate();
-  //for division and district call
+  const [updateID, setUpdateID] = useState(null);
+
   useEffect(() => {
     (async () => {
       await fetchDivisions();
     })();
   }, []);
 
-  const handleDivisionChange = async (division) => {
-    setSelectedDivision(division);
-    fetchDistricts(division);
-    addFormChange("locationName", division);
+  useEffect(() => {
+    (async () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const id = urlParams.get("id");
+      setUpdateID(id);
+      if (id !== null) {
+        await fillForm(id);
+      }
+    })();
+  }, []);
+
+  const fillForm = async (id) => {
+    try {
+      let res = await addRequestById(id);
+
+      // Check if the response is empty or null
+      if (!res) {
+        console.error("Error: Empty response received");
+        return;
+      }
+
+      Object.keys(addForm).forEach((key) => {
+        // Handle locationName
+        if (key === "locationName") {
+          setSelectedDivision(res[key]);
+          fetchDistricts(res[key]);
+        }
+        // Handle subLocationName
+        else if (key === "subLocationName") {
+          addFormChange(key, res[key]);
+        }
+        // Handle condition and authenticity
+        else if (key === "condition" || key === "authenticity") {
+          addFormChange(key, res[key] || "");
+        }
+        // Handle image
+        else if (key === "image" && res[key]) {
+          addFormChange(key, res[key]);
+          setImagePreview(res[key]);
+        }
+        // Handle other fields
+        else {
+          addFormChange(key, res[key] || "");
+        }
+      });
+    } catch (error) {
+      console.error("Error while filling form:", error);
+    }
   };
 
-  // Function to handle image change
+  const handleDivisionChange = async (division) => {
+    setSelectedDivision(division);
+    addFormChange("locationName", division); // Update locationName in the form state
+    await fetchDistricts(division); // Fetch districts based on the selected division
+  };
+
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     TransformFile(file);
-    addFormChange("image", file);
   };
 
-  // Function to reset form fields
-  // Function to reset form fields
   const resetForm = () => {
-    setSelectedDivision(""); // Reset selected division
-    addFormChange("locationName", "");
-    addFormChange("subLocationName", "");
-    addFormChange("categoryName", "");
-    addFormChange("subcategoryName", "");
-    addFormChange("features", "");
-    addFormChange("description", "");
-    addFormChange("price", "");
-    addFormChange("phone", "");
-    addFormChange("userName", "");
-    addFormChange("condition", "");
-    addFormChange("authenticity", "");
-    addFormChange("image", "");
+    Object.keys(addForm).forEach((key) => {
+      addFormChange(key, "");
+    });
     setImagePreview(null);
   };
 
-  // Function to handle form submission
+  // Inside the handleSubmit function
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Check if any required field is empty
-    const requiredFields = [
-      "locationName",
-      "subLocationName",
-      "categoryName",
-      "subcategoryName",
-      "features",
-      "description",
-      "price",
-      "phone",
-      "userName",
-      "condition",
-      "authenticity",
-      "image",
-    ];
+    const requiredFields = Object.keys(addForm);
     const emptyFields = requiredFields.filter((field) => !addForm[field]);
 
     if (emptyFields.length > 0) {
@@ -87,16 +116,22 @@ const CreateAddForm = () => {
     }
 
     try {
-      // Call saveAddRequest and await the response
-      const res = await saveAddRequest(addForm);
-
-      // Check if the response status is successful
-      if (res.status === "success") {
-        toast.success("Add Created Successfully");
-        resetForm(); // Reset form fields
-        // navigate("/my-account/my-adds"); // Navigate to my-adds page
+      let res;
+      if (updateID === null) {
+        res = await saveAddRequest(addForm);
       } else {
-        toast.error("Failed to create add");
+        res = await updateAddRequest(updateID, addForm);
+      }
+
+      if (res.status === "success") {
+        toast.success("Add Saved Successfully", {
+          onClose: () => {
+            resetForm();
+            navigate("/my-account/my-adds");
+          },
+        });
+      } else {
+        toast.error("Failed to save add");
       }
     } catch (error) {
       console.error("Error while saving add:", error);
@@ -110,7 +145,7 @@ const CreateAddForm = () => {
     return new Promise((resolve, reject) => {
       if (!file) {
         addFormChange("image", "");
-        setImagePreview(null); // Clear image preview
+        setImagePreview(null);
         resolve();
         return;
       }
@@ -120,7 +155,7 @@ const CreateAddForm = () => {
       reader.onload = () => {
         const imageData = reader.result;
         addFormChange("image", imageData);
-        setImagePreview(imageData); // Set image preview
+        setImagePreview(imageData);
         resolve();
       };
 
@@ -140,13 +175,11 @@ const CreateAddForm = () => {
             Create Add
           </h4>
           <form className="text-gray-500">
-            {/* Render form fields */}
-            {/* Location Name */}
             <select
               value={selectedDivision}
               onChange={(e) => handleDivisionChange(e.target.value)}
               placeholder="Location Name"
-              className="input-field rounded-md p-1 mb-4 w-full "
+              className="input-field rounded-md p-1 mb-4 w-full"
             >
               <option key="default" value="">
                 Select Division
@@ -157,12 +190,9 @@ const CreateAddForm = () => {
                 </option>
               ))}
             </select>
-            {/* Sublocation Name */}
             <select
               value={addForm.subLocationName}
-              onChange={(e) => {
-                addFormChange("subLocationName", e.target.value);
-              }}
+              onChange={(e) => addFormChange("subLocationName", e.target.value)}
               placeholder="Sublocation Name"
               className="input-field rounded-md p-1 mb-4 w-full"
             >
@@ -175,7 +205,6 @@ const CreateAddForm = () => {
                 </option>
               ))}
             </select>
-            {/* Category Name */}
             <input
               value={addForm.categoryName}
               onChange={(e) => addFormChange("categoryName", e.target.value)}
@@ -183,7 +212,6 @@ const CreateAddForm = () => {
               placeholder="Category Name"
               className="input-field rounded-md p-1 mb-4 w-full"
             />
-            {/* Subcategory Name */}
             <input
               value={addForm.subcategoryName}
               onChange={(e) => addFormChange("subcategoryName", e.target.value)}
@@ -191,7 +219,6 @@ const CreateAddForm = () => {
               placeholder="Subcategory Name"
               className="input-field rounded-md p-1 mb-4 w-full"
             />
-            {/* Features */}
             <input
               value={addForm.features}
               onChange={(e) => addFormChange("features", e.target.value)}
@@ -199,7 +226,6 @@ const CreateAddForm = () => {
               placeholder="Features"
               className="input-field rounded-md p-1 mb-4 w-full"
             />
-            {/* Description */}
             <textarea
               value={addForm.description}
               onChange={(e) => addFormChange("description", e.target.value)}
@@ -207,7 +233,6 @@ const CreateAddForm = () => {
               className="input-field rounded-md p-1 mb-4 w-full"
               rows="4"
             ></textarea>
-            {/* Price */}
             <input
               value={addForm.price}
               onChange={(e) => addFormChange("price", e.target.value)}
@@ -215,7 +240,6 @@ const CreateAddForm = () => {
               placeholder="Price"
               className="input-field rounded-md p-1 mb-4 w-full"
             />
-            {/* Phone */}
             <input
               value={addForm.phone}
               onChange={(e) => addFormChange("phone", e.target.value)}
@@ -223,7 +247,6 @@ const CreateAddForm = () => {
               placeholder="Phone"
               className="input-field rounded-md p-1 mb-4 w-full"
             />
-            {/* User Name */}
             <input
               value={addForm.userName}
               onChange={(e) => addFormChange("userName", e.target.value)}
@@ -254,7 +277,6 @@ const CreateAddForm = () => {
                 Used
               </label>
             </div>
-            {/* Authenticity */}
             <div className="mb-4 text-left text-yellow-500">
               <p className="text-lg mb-2">Authenticity</p>
               <label className="inline-flex items-center">
@@ -282,7 +304,6 @@ const CreateAddForm = () => {
                 Refurbished
               </label>
             </div>
-            {/* Image upload */}
             <input
               type="file"
               name="image"
@@ -300,7 +321,6 @@ const CreateAddForm = () => {
             )}
             <AddSubmitButton
               onClick={handleSubmit}
-              submit={false}
               className="btn w-full md:w-80% font-bold text-lg border-none outline-none bg-yellow-500 text-black hover:text-white hover:bg-yellow-700 py-2 px-4 rounded-md"
               text="Save"
             />

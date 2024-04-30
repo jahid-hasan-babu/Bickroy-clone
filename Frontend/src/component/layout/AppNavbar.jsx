@@ -22,7 +22,15 @@ const AppNavbar = () => {
       setIsLoggedIn(loggedIn);
     };
 
+    // Check login status initially
     checkLoginStatus();
+
+    // Set up interval to periodically check login status
+    const interval = setInterval(() => {
+      checkLoginStatus();
+    }, 300000); // Check every 5 minutes (adjust interval as needed)
+
+    return () => clearInterval(interval);
   }, []);
 
   return (

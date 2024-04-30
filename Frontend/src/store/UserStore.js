@@ -118,7 +118,6 @@ const UserStore = create((set) => ({
       set({ isFormSubmit: false });
       return res.data["status"] === "success";
     } catch (e) {
-      console.error("Error saving profile:", e);
       set({ isFormSubmit: false });
     }
   },
@@ -165,14 +164,24 @@ const UserStore = create((set) => ({
       const response = await axios.get(
         `https://bdapis.com/api/v1.1/division/${division}`
       );
-      const districtsData = response.data.data.map(
-        (district) => district.district
-      );
-      set({ districts: districtsData });
+
+      // Check if the response contains the expected data structure
+      if (response.data && response.data.data) {
+        const districtsData = response.data.data.map(
+          (district) => district.district
+        );
+        set({ districts: districtsData });
+      } else {
+        console.error("Error: Response data or districts data is undefined");
+        // Handle the error condition, such as displaying an error message
+        // or setting default values for districts
+      }
     } catch (error) {
       console.error("Error fetching districts:", error);
+      // Handle the error condition, such as displaying an error message
     }
   },
+
   setSelectedDivision: (division) => set({ selectedDivision: division }),
 }));
 

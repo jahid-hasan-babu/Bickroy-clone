@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom"; // Import useHistory from react-router-dom
 import CreateAddsStore from "../../store/CreateAddsStore";
 import AdminSkeleton from "./../../skeleton/AdminSkeleton";
 import Pagination from "react-js-pagination";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { FiEdit } from "react-icons/fi";
 import Swal from "sweetalert2";
+import NoData from "../../assets/img/no-data.jpg";
 
 const AddList = () => {
   const { UserAddsList, UserAddListRequest, deleteAddRequest } =
@@ -50,11 +52,16 @@ const AddList = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         // If confirmed, proceed with the delete request
-        await deleteAddRequest(userId, addId);
-        // Show success message
-        Swal.fire("Deleted!", "Your file has been deleted.", "success");
-        // Reload data after deletion
-        await UserAddListRequest();
+        const res = await deleteAddRequest(userId, addId);
+        if (res.status === "success") {
+          // Show success message
+          Swal.fire("Deleted!", "Your file has been deleted.", "success");
+          // Reload data after deletion
+          await UserAddListRequest();
+        } else {
+          // Show error message
+          Swal.fire("Failed!", "Failed to delete add.", "error");
+        }
       }
     });
   };
@@ -105,16 +112,23 @@ const AddList = () => {
                         <td className="px-4 py-2 text-center">
                           {new Date(item.createdAt).toLocaleDateString()}
                         </td>
-                        <td className="px-4 py-2 text-center text-2xl">
-                          <button className="text-green-500 pr-2">
-                            <FiEdit />
-                          </button>
-                          <button
-                            className="text-red-500"
-                            onClick={() => onDelete(item.userId, item["_id"])} // Pass both userId and addId
-                          >
-                            <RiDeleteBin6Line />
-                          </button>
+                        <td className="px-4 py-9 text-center text-2xl flex items-center justify-center">
+                          <div className="mr-3">
+                            <Link
+                              className="text-green-500 "
+                              to={"/my-account/create-add?id=" + item["_id"]} // Pass the add ID to the onEdit function
+                            >
+                              <FiEdit />
+                            </Link>
+                          </div>
+                          <div className="mt-2">
+                            <button
+                              className="text-red-500"
+                              onClick={() => onDelete(item.userId, item["_id"])} // Pass both userId and addId
+                            >
+                              <RiDeleteBin6Line />
+                            </button>
+                          </div>
                         </td>
                       </tr>
                     ))}
@@ -141,12 +155,10 @@ const AddList = () => {
             </>
           ) : (
             <div className="flex flex-col items-center justify-center">
-              <img
-                src="/user-logo.png"
-                alt="User Logo"
-                className="w-24 h-24 mb-4"
-              />
-              <p className="text-lg">No data available</p>
+              <img src={NoData} alt="User Logo" className="h-[50vh] w-full" />
+              <p className="text-lg pt-5">
+                No data available go to create page
+              </p>
             </div>
           )}
         </div>

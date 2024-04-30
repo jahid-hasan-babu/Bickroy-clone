@@ -4,6 +4,8 @@ const {
   readAllAddByUserService,
   deleteAddByUserService,
   searchByKeywordService,
+  updateAddService,
+  readUserAddsByUserService,
 } = require("../services/AddsService");
 
 exports.createAdd = async (req, res) => {
@@ -22,6 +24,18 @@ exports.readAllAdds = async (req, res) => {
 
 exports.readUserAdd = async (req, res) => {
   let result = await readAllAddByUserService(req);
+  return res.status(200).json(result);
+};
+exports.readUserAddOne = async (req, res) => {
+  let result = await readUserAddsByUserService(req);
+  return res.status(200).json(result);
+};
+exports.updateUserAdd = async (req, res) => {
+  let result = await updateAddService(req);
+  return res.status(200).json(result);
+};
+exports.updateUserAddById = async (req, res) => {
+  let result = await readUserAddsByUserService(req);
   return res.status(200).json(result);
 };
 

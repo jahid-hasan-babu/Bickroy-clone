@@ -1,28 +1,6 @@
 const AddModel = require("../model/AddModel");
 const cloudinary = require("../utility/cloudinary");
 
-// const uploadToCloudinary = async (file) => {
-//   try {
-//     // Upload the image to Cloudinary
-//     const result = await cloudinary.uploader.upload(file.path, {
-//       folder: "image", // Optional: Specify the folder where you want to store the image
-//     });
-
-//     // Return the uploaded image details
-//     return {
-//       public_id: result.public_id,
-//       url: result.secure_url,
-//       format: result.format,
-//       width: result.width,
-//       height: result.height,
-//       // Add more details as needed
-//     };
-//   } catch (error) {
-//     console.error("Error uploading image to Cloudinary:", error);
-//     throw error; // Throw the error to handle it in the calling function
-//   }
-// };
-
 const createAddService = async (req) => {
   // Retrieve user_id from headers
   const user_id = req.headers.user_id;
@@ -112,6 +90,59 @@ const readAllAddByUserService = async (req) => {
     return { status: "fail", message: "Data not found!" };
   }
 };
+const updateAddService = async (req) => {
+  try {
+    const user_id = req.headers.user_id; // Assuming user_id is sent in request headers
+    const addId = req.params.addId;
+
+    // Check if the user has permission to update the add
+    const add = await AddModel.findOne({ _id: addId, userID: user_id });
+
+    if (!add) {
+      return {
+        status: "fail",
+        message: "Add not found or you don't have permission to update it",
+      };
+    }
+
+    // Update the add document with the provided fields
+    const updatedAdd = await AddModel.findOneAndUpdate(
+      { _id: addId, userID: user_id },
+      { $set: req.body },
+      { new: true } // Return the updated document
+    );
+
+    if (!updatedAdd) {
+      return {
+        status: "fail",
+        message: "Failed to update the add",
+      };
+    }
+
+    return {
+      status: "success",
+      message: "Add updated successfully",
+      data: updatedAdd,
+    };
+  } catch (error) {
+    console.error("Error during add update:", error);
+    return {
+      status: "fail",
+      message: "Failed to update add",
+    };
+  }
+};
+
+const readUserAddsByUserService = async (req) => {
+  try {
+    const user_id = req.headers.user_id;
+    const addId = req.params.addId; // Assuming user_id is sent in request headers
+    const data = await AddModel.find({ _id: addId, userID: user_id });
+    return { status: "success", data: data };
+  } catch (error) {
+    return { status: "fail", message: "Failed to fetch user adds" };
+  }
+};
 
 const deleteAddByUserService = async (req) => {
   try {
@@ -179,4 +210,6 @@ module.exports = {
   readAllAddByUserService,
   deleteAddByUserService,
   searchByKeywordService,
+  updateAddService,
+  readUserAddsByUserService,
 };

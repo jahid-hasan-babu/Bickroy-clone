@@ -37,7 +37,18 @@ router.post("/create-add", AuthVerification, AddsController.createAdd);
 router.get("/read-adds", AddsController.readAllAdds);
 //read all adds for user who create
 router.get("/read-user-add", AuthVerification, AddsController.readUserAdd);
+router.get(
+  "/read-user-addByID/:addId",
+  AuthVerification,
+  AddsController.readUserAddOne
+);
+
 router.get("/searchByKeyword/:Keyword", AddsController.searchByKeyword);
+router.patch(
+  "/update-user-add/:addId",
+  AuthVerification,
+  AddsController.updateUserAdd
+);
 
 router.delete(
   "/delete-user-add/:addId",

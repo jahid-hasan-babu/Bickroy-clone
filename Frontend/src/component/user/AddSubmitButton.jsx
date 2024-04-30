@@ -1,5 +1,5 @@
 import React from "react";
-import CreateAddsStore from "./../../store/CreateAddsStore";
+import CreateAddsStore from "../../store/CreateAddsStore";
 
 const AddSubmitButton = (props) => {
   let { isFormSubmit } = CreateAddsStore();
