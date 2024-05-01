@@ -11,6 +11,7 @@ import SettingsPage from "./page/SettingsPage";
 import MyAddsPage from "./page/MyAddsPage";
 import CreateAddPage from "./page/CreateAddPage";
 import AddByKeyword from "./page/AddByKeyword";
+import DetailsPage from "./page/DetailsPage";
 
 const App = () => {
   return (
@@ -27,6 +28,7 @@ const App = () => {
         <Route path="/admin-dashboard/adds" element={<AddsPage />} />
         <Route path="/admin-dashboard/slider" element={<SliderPage />} />
         <Route path="/by-keyword/:Keyword" element={<AddByKeyword />} />
+        <Route path="/details/:addID" element={<DetailsPage />} />
       </Routes>
     </BrowserRouter>
   );

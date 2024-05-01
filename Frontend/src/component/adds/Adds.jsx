@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import AddsSkeleton from "../../skeleton/AddsSkeleton";
 import AddStore from "../../store/Adds";
 import Pagination from "react-js-pagination";
+import { Link } from "react-router-dom";
 
 const Adds = () => {
   const { AddsList, AddsListRequest } = AddStore();
@@ -39,18 +40,20 @@ const Adds = () => {
           <div className="grid grid-cols-1 mt-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {currentAddsList.map((item, i) => (
               <div className="text-center p-2" key={i}>
-                <div className="rounded-lg border-[3px] border-black p-4 bg-yellow-500">
-                  <img
-                    className="rounded-lg h-[160px] w-full"
-                    src={item.image}
-                    alt="image"
-                  />
-                  <div className="text-left py-5">
-                    <p>
-                      Price: {item.price} <span>&#2547;</span>{" "}
-                    </p>
+                <Link to={`/details/${item["_id"]}`}>
+                  <div className="rounded-lg border-[3px] border-black p-4 bg-yellow-500">
+                    <img
+                      className="rounded-lg h-[160px] w-full"
+                      src={item.image}
+                      alt="image"
+                    />
+                    <div className="text-left py-5">
+                      <p>
+                        Price: {item.price} <span>&#2547;</span>{" "}
+                      </p>
+                    </div>
                   </div>
-                </div>
+                </Link>
               </div>
             ))}
           </div>

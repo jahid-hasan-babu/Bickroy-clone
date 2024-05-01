@@ -81,6 +81,27 @@ const readAllAddService = async () => {
   }
 };
 
+const readAddByIdService = async (req) => {
+  try {
+    const addId = req.params.addID; // Change to addID to match route parameter name
+    const data = await AddModel.find({ _id: addId });
+
+    if (data.length === 0) {
+      return { status: "fail", message: "Data not found!" };
+    }
+
+    return { status: "success", data: data };
+  } catch (error) {
+    console.error("Error reading add by ID:", error);
+    return {
+      status: "error",
+      message: "An error occurred while reading add by ID.",
+    };
+  }
+};
+
+module.exports = readAddByIdService;
+
 const readAllAddByUserService = async (req) => {
   try {
     const user_id = req.headers.user_id; // Assuming user_id is sent in request headers
@@ -213,4 +234,5 @@ module.exports = {
   searchByKeywordService,
   updateAddService,
   readUserAddsByUserService,
+  readAddByIdService,
 };

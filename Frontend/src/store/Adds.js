@@ -35,6 +35,17 @@ const AddStore = create((set) => ({
   SetSearchKeyword: async (Keyword) => {
     set({ SearchKeyword: Keyword });
   },
+  Details: null,
+  DetailsRequest: async (addID) => {
+    try {
+      let res = await axios.get(`${BaseURL}/read-add-details/${addID}`);
+      if (res.data["status"] === "success") {
+        set({ Details: res.data["data"] });
+      }
+    } catch (error) {
+      console.error("Error fetching ad details:", error);
+    }
+  },
 }));
 
 export default AddStore;

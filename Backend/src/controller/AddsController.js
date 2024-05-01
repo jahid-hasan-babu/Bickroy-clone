@@ -6,6 +6,7 @@ const {
   searchByKeywordService,
   updateAddService,
   readUserAddsByUserService,
+  readAddByIdService,
 } = require("../services/AddsService");
 
 exports.createAdd = async (req, res) => {
@@ -19,6 +20,10 @@ exports.createAdd = async (req, res) => {
 
 exports.readAllAdds = async (req, res) => {
   let result = await readAllAddService();
+  return res.status(200).json(result);
+};
+exports.readAddByID = async (req, res) => {
+  let result = await readAddByIdService(req);
   return res.status(200).json(result);
 };
 
