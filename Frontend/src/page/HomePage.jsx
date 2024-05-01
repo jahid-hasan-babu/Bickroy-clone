@@ -5,11 +5,13 @@ import Slider from "../component/adds/Slider";
 import Categories from "../component/adds/Categories";
 import QuickLinks from "../component/adds/QuickLinks";
 import Adds from "../component/adds/Adds";
+import SearchInput from "../component/layout/SearchInput";
 
 const HomePage = () => {
   return (
     <>
       <AppNavbar />
+      <SearchInput />
       <Slider />
       <Adds />
       <Categories />

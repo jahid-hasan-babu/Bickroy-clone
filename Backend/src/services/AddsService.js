@@ -191,6 +191,7 @@ const searchByKeywordService = async (req) => {
       { categoryName: SearchRegex },
       { subcategoryName: SearchRegex },
       { condition: SearchRegex },
+      { features: SearchRegex },
     ];
     let SearchQuery = { $or: SearchParams };
     let MatchStage = { $match: SearchQuery };

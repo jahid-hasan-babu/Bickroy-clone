@@ -24,6 +24,17 @@ const AddStore = create((set) => ({
       set({ AddsList: res.data["data"] });
     }
   },
+  ListByKeywordRequest: async (Keyword) => {
+    set({ AddsList: null });
+    let res = await axios.get(`${BaseURL}/searchByKeyword/${Keyword}`);
+    if (res.data["status"] === "success") {
+      set({ AddsList: res.data["data"] });
+    }
+  },
+  SearchKeyword: "",
+  SetSearchKeyword: async (Keyword) => {
+    set({ SearchKeyword: Keyword });
+  },
 }));
 
 export default AddStore;
