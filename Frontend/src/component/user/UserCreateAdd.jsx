@@ -205,20 +205,61 @@ const CreateAddForm = () => {
                 </option>
               ))}
             </select>
-            <input
+            <select
               value={addForm.categoryName}
               onChange={(e) => addFormChange("categoryName", e.target.value)}
-              type="text"
-              placeholder="Category Name"
+              placeholder="Location Name"
               className="input-field rounded-md p-1 mb-4 w-full"
-            />
-            <input
+            >
+              <option value="">Select Category</option>
+              <option value="Mobiles">Mobiles</option>
+              <option value="Electronics">Electronics</option>
+              <option value="Vehicles">Vehicles</option>
+              <option value="Property">Property</option>
+              <option value="Education">Education</option>
+              <option value="Agriculture">Agriculture</option>
+              <option value="Business & Industry">Business & Industry</option>
+              <option value="Essentials">Essentials</option>
+            </select>
+
+            <select
               value={addForm.subcategoryName}
               onChange={(e) => addFormChange("subcategoryName", e.target.value)}
-              type="text"
               placeholder="Subcategory Name"
               className="input-field rounded-md p-1 mb-4 w-full"
-            />
+            >
+              <option value="">Select Sub Category</option>
+              <option value="Mobiles">Mobile Phones</option>
+              <option value="Sim Cards">Sim Cards</option>
+              <option value="Wearables">Wearables</option>
+              <option value="Desktop Computers">Desktop Computers</option>
+              <option value="Laptops">Laptops</option>
+              <option value="TVs">TVs</option>
+              <option value="Home Appliances">Home Appliances</option>
+              <option value="Cars">Cars</option>
+              <option value="Motorbikes">Motorbikes</option>
+              <option value="Bicycles">Bicycles</option>
+              <option value="Buses">Buses</option>
+              <option value="Lands">Lands</option>
+              <option value="House">House</option>
+              <option value="Flat">Flat</option>
+              <option value="Text Books">Text Books</option>
+              <option value="Courses">Courses</option>
+              <option value="Crops, Seeds & Plants">
+                Crops, Seeds & Plants
+              </option>
+              <option value="Farming Tools & Machinery">
+                Farming Tools & Machinery
+              </option>
+              <option value="Raw Materials">Raw Materials</option>
+              <option value="Industry Machinery & Tools">
+                Industry Machinery & Tools
+              </option>
+              <option value="Grocery">Grocery</option>
+              <option value="Fruits & Vegetables">Fruits & Vegetables</option>
+              <option value="Baby Products">Baby Products</option>
+            </select>
+
             <input
               value={addForm.features}
               onChange={(e) => addFormChange("features", e.target.value)}

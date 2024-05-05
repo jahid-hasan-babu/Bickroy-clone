@@ -15,7 +15,7 @@ const DetailsAdd = () => {
   return (
     <div className="bg-yellow-300 min-h-screen">
       <div className="container mx-auto py-10 px-4 lg:px-0 max-w-5xl">
-        <h1 className="text-center font-bold text-3xl lg:text-4xl mb-6 text-black">
+        <h1 className="text-center py-5 font-bold text-3xl lg:text-4xl mb-6 text-black">
           Add Details
         </h1>
         {Details ? (
@@ -67,7 +67,7 @@ const DetailsAdd = () => {
               </div>
             </div>
             <div className="mt-4">
-              <hr className="w-full my-4 border-black" />
+              <hr className="w-full my-5 border-black" />
               <h2 className="text-lg font-semibold mb-2">Description:</h2>
               <p>{Details[0]["description"]}</p>
             </div>
