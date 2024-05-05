@@ -48,9 +48,15 @@ const AddListByKeyword = () => {
                       src={item.image}
                       alt="image"
                     />
-                    <div className="text-left py-5">
+                    <div className="text-left py-5 font-bold">
+                      <p className="text-xl">
+                        {item.features} ({item.condition})
+                      </p>
                       <p>
-                        Price: {item.price} <span>&#2547;</span>{" "}
+                        {item.locationName} , {item.subcategoryName}
+                      </p>
+                      <p>
+                        TK , {item.price} <span>&#2547;</span>{" "}
                       </p>
                     </div>
                   </div>
