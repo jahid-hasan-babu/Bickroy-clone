@@ -3,6 +3,7 @@ const {
   readCategoriesService,
   updateCategoriesService,
   deleteCategoriesService,
+  CategoryByKeywordService,
 } = require("../services/CategoryService");
 
 exports.createCategory = async (req, res) => {
@@ -12,6 +13,11 @@ exports.createCategory = async (req, res) => {
 
 exports.allCategory = async (req, res) => {
   let result = await readCategoriesService();
+  res.status(200).json(result);
+};
+
+exports.CategoryListRemark = async (req, res) => {
+  let result = await CategoryByKeywordService(req);
   res.status(200).json(result);
 };
 

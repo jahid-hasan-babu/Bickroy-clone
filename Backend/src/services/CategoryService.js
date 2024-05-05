@@ -1,3 +1,4 @@
+const AddModel = require("../model/AddModel");
 const CategoryModel = require("../model/CategoryModel");
 
 const createCategoryService = async (req) => {
@@ -16,6 +17,20 @@ const readCategoriesService = async () => {
     return { status: "success", data: data };
   } catch (error) {
     return { status: "fail", message: "data not found" };
+  }
+};
+
+const CategoryByKeywordService = async (req) => {
+  try {
+    let Remark = req.params.Remark;
+    let MatchStage = { $match: { categoryName: Remark } };
+    let data = await AddModel.aggregate([MatchStage]);
+    return { status: "success", data: data };
+  } catch (error) {
+    return {
+      status: "fail",
+      message: "no data found",
+    };
   }
 };
 
@@ -44,4 +59,5 @@ module.exports = {
   readCategoriesService,
   updateCategoriesService,
   deleteCategoriesService,
+  CategoryByKeywordService,
 };

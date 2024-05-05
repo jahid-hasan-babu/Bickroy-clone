@@ -72,6 +72,11 @@ router.post(
   CategoryController.createCategory
 );
 router.get("/category-list", CategoryController.allCategory);
+router.get(
+  "/category-list-ByRemark/:Remark",
+  CategoryController.CategoryListRemark
+);
+
 router.patch(
   "/update-category/:id",
   AdminVerification,
