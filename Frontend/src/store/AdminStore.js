@@ -1,4 +1,3 @@
-// AdminStore.js
 import { create } from "zustand";
 import axios from "axios";
 
@@ -56,6 +55,47 @@ const AdminStore = create((set) => ({
       }
     } catch (error) {
       return error;
+    }
+  },
+  deleteAddRequest: async (addId) => {
+    try {
+      const response = await axios.delete(
+        `${BaseURL}/delete-add-admin/${addId}`
+      );
+
+      // Check if the response status is 200 (OK) or not
+      if (response.status === 200) {
+        // Update addList after successful deletion
+        set((state) => ({
+          addList: state.addList.filter((item) => item.id !== addId),
+        }));
+        return { status: "success", message: "Add deleted successfully" };
+      } else {
+        return { status: "fail", message: "Failed to delete add" };
+      }
+    } catch (error) {
+      return { status: "error", message: "Error deleting add" };
+    }
+  },
+
+  deleteUserByAdminRequest: async (userId) => {
+    try {
+      const response = await axios.delete(
+        `${BaseURL}/delete-userByAdmin/${userId}`
+      );
+
+      // Check if the response status is 200 (OK) or not
+      if (response.status === 200) {
+        // Update addList after successful deletion
+        set((state) => ({
+          userList: state.userList.filter((item) => item.id !== userId),
+        }));
+        return { status: "success", message: "Add deleted successfully" };
+      } else {
+        return { status: "fail", message: "Failed to delete add" };
+      }
+    } catch (error) {
+      return { status: "error", message: "Error deleting add" };
     }
   },
 }));

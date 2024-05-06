@@ -7,6 +7,7 @@ const {
   updateAddService,
   readUserAddsByUserService,
   readAddByIdService,
+  deleteAddsService,
 } = require("../services/AddsService");
 
 exports.createAdd = async (req, res) => {
@@ -46,6 +47,10 @@ exports.updateUserAddById = async (req, res) => {
 
 exports.deleteAddByUser = async (req, res) => {
   let result = await deleteAddByUserService(req);
+  return res.status(200).json(result);
+};
+exports.deleteAdds = async (req, res) => {
+  let result = await deleteAddsService(req);
   return res.status(200).json(result);
 };
 

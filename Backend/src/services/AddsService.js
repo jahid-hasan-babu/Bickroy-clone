@@ -205,6 +205,42 @@ const deleteAddByUserService = async (req) => {
   }
 };
 
+const deleteAddsService = async (req) => {
+  try {
+    const addId = req.params.addId;
+    const add = await AddModel.findOne({ _id: addId });
+    if (!add) {
+      return {
+        status: "fail",
+        message: "Add not found or you don't have permission to delete it",
+      };
+    }
+
+    // Delete the add
+    const deletedAdd = await AddModel.deleteOne({
+      _id: addId,
+    });
+
+    // Check if the add was successfully deleted
+    if (deletedAdd.deletedCount === 0) {
+      return {
+        status: "fail",
+        message: "Failed to delete the add",
+      };
+    }
+
+    return {
+      status: "success",
+      message: "Add deleted successfully",
+    };
+  } catch (error) {
+    return {
+      status: "fail",
+      message: "Failed to delete add",
+    };
+  }
+};
+
 const searchByKeywordService = async (req) => {
   try {
     let SearchRegex = { $regex: req.params.Keyword, $options: "i" };
@@ -235,4 +271,5 @@ module.exports = {
   updateAddService,
   readUserAddsByUserService,
   readAddByIdService,
+  deleteAddsService,
 };

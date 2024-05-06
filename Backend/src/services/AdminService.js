@@ -1,6 +1,7 @@
 const AdminModel = require("../model/AdminModel");
 const AddModel = require("../model/AddModel");
 const jwt = require("jsonwebtoken");
+const ProfileModel = require("../model/ProfileModel");
 
 const createAdminService = async (req) => {
   try {
@@ -61,19 +62,46 @@ const approveAddService = async (req) => {
   }
 };
 
-const deleteAddService = async (req) => {
+const deleteUserByAdminService = async (req) => {
   try {
-    const { adId } = req.params;
-    await AddModel.findByIdAndDelete(adId);
-    return { status: "success", message: "add delete success" };
+    const userId = req.params.userId;
+    const user = await ProfileModel.findOne({ _id: userId });
+    if (!user) {
+      return {
+        status: "fail",
+        message: "Add not found or you don't have permission to delete it",
+      };
+    }
+
+    // Delete the add
+    const deletedUser = await ProfileModel.deleteOne({
+      _id: userId,
+    });
+
+    // Check if the add was successfully deleted
+    if (deletedUser.deletedCount === 0) {
+      return {
+        status: "fail",
+        message: "Failed to delete the add",
+      };
+    }
+
+    return {
+      status: "success",
+      message: "Add deleted successfully",
+    };
   } catch (error) {
-    return { status: "fail", message: "add delete fail" };
+    return {
+      status: "fail",
+      message: "Failed to delete add",
+    };
   }
 };
+
 module.exports = {
   createAdminService,
   AdminLogin,
   updateAdminService,
   approveAddService,
-  deleteAddService,
+  deleteUserByAdminService,
 };

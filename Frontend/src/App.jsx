@@ -13,6 +13,7 @@ import AddByKeyword from "./page/AddByKeyword";
 import DetailsPage from "./page/DetailsPage";
 import ErrorPage from "./page/ErrorPage";
 import AdminAddsPage from "./page/AdminAddsPage";
+import AdminUserPage from "./page/AdminUserPage";
 
 const App = () => {
   return (
@@ -27,6 +28,7 @@ const App = () => {
         <Route path="/my-account/create-add" element={<CreateAddPage />} />
         <Route path="/admin-login" element={<AdminPage />} />
         <Route path="/admin-dashboard/adds" element={<AdminAddsPage />} />
+        <Route path="/admin-dashboard/user" element={<AdminUserPage />} />
         <Route path="/admin-dashboard/slider" element={<SliderPage />} />
         <Route path="/by-keyword/:Keyword" element={<AddByKeyword />} />
         <Route path="/details/:addID" element={<DetailsPage />} />

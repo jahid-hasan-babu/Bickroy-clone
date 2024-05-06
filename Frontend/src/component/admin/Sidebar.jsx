@@ -47,20 +47,20 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
           </Link>
         </li>
         <li>
-          <a
-            href="#"
+          <Link
+            to="/admin-dashboard/user"
             className="block py-2 px-4 text-gray-400 hover:bg-gray-700 hover:text-white"
           >
             Users
-          </a>
+          </Link>
         </li>
         <li>
-          <a
-            href="#"
+          <Link
+            to="/admin-dashboard/settings"
             className="block py-2 px-4 text-gray-400 hover:bg-gray-700 hover:text-white"
           >
             Settings
-          </a>
+          </Link>
         </li>
       </ul>
     </div>

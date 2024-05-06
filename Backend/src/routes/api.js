@@ -64,8 +64,8 @@ router.post("/create-admin", AdminController.createAdmin); //this route use only
 router.get("/login-admin/:email/:password", AdminController.adminLogin);
 router.patch("/update-admin", AdminVerification, AdminController.updateAdmin);
 router.put("/approveAdd/:adId", AdminController.approveAdmin);
-router.delete("/deleteAddByAdmin/:adId", AdminController.deleteAdds);
-
+router.delete("/delete-add-admin/:addId", AddsController.deleteAdds);
+router.delete("/delete-userByAdmin/:userId", AdminController.deleteUserByAdmin);
 //category
 router.post(
   "/create-category",
