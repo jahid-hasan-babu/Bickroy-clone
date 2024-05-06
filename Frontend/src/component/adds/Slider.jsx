@@ -18,16 +18,12 @@ const Slider = () => {
   return (
     <Carousel showThumbs={false} infiniteLoop autoPlay interval={5000}>
       {SliderList.map((item, index) => (
-        <div key={index}>
+        <div key={index} style={{ position: "relative" }}>
           <img
-            className="h-80 w-full" // Adjust height and width as needed
+            className="w-full h-auto max-h-80" // Adjust height and width
             src={item.image}
             alt={`Slide ${index + 1}`}
           />
-          <div className="legend bg-black opacity-75 ">
-            <h2 className="md:text-5xl sm:text-xl">{item.name}</h2>
-            <p className=" md:text-2xl sm:text-lg">{item.des}</p>
-          </div>
         </div>
       ))}
     </Carousel>
