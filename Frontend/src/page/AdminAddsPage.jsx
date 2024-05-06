@@ -2,7 +2,7 @@ import React from "react";
 import DashBoard from "../component/admin/DashBoard";
 import Adds from "../component/admin/Adds";
 
-const AddsPage = () => {
+const AdminAddsPage = () => {
   return (
     <>
       <DashBoard />
@@ -11,4 +11,4 @@ const AddsPage = () => {
   );
 };
 
-export default AddsPage;
+export default AdminAddsPage;

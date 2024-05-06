@@ -24,10 +24,7 @@ const AdminStore = create((set) => ({
       );
 
       if (res && res.data && res.data.token) {
-        // Set the token in localStorage
         localStorage.setItem("token", res.data.token);
-
-        // Remove the token from localStorage after 24 hours
         setTimeout(() => {
           localStorage.removeItem("token");
         }, 24 * 60 * 60 * 1000); // 24 hours in milliseconds
@@ -37,6 +34,28 @@ const AdminStore = create((set) => ({
     } catch (error) {
       console.error("Error logging in:", error);
       throw new Error("Failed to login. Please try again later.");
+    }
+  },
+  addList: null,
+  totalAddRequest: async () => {
+    try {
+      const res = await axios.get(`${BaseURL}/read-adds`);
+      if (res.data["status"] === "success") {
+        set({ addList: res.data["data"] });
+      }
+    } catch (error) {
+      return error;
+    }
+  },
+  userList: null,
+  totalUserRequest: async () => {
+    try {
+      const res = await axios.get(`${BaseURL}/read-user`);
+      if (res.data["status"] === "success") {
+        set({ userList: res.data["data"] });
+      }
+    } catch (error) {
+      return error;
     }
   },
 }));

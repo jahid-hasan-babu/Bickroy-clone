@@ -4,6 +4,7 @@ const {
   saveProfileService,
   deleteProfileService,
   ReadProfileService,
+  ReadUserService,
 } = require("../services/UserService");
 
 exports.login = async (req, res) => {
@@ -66,5 +67,10 @@ exports.deleteProfile = async (req, res) => {
 
 exports.readProfile = async (req, res) => {
   let result = await ReadProfileService(req);
+  return res.status(200).json(result);
+};
+
+exports.reaAllUser = async (req, res) => {
+  let result = await ReadUserService();
   return res.status(200).json(result);
 };

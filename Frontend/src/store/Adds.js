@@ -29,6 +29,7 @@ const AddStore = create((set) => ({
     let res = await axios.get(`${BaseURL}/searchByKeyword/${Keyword}`);
     if (res.data["status"] === "success") {
       set({ AddsList: res.data["data"] });
+      set({ SearchKeyword: "" });
     }
   },
   ListByCategoryKeywordRequest: async (Keyword) => {

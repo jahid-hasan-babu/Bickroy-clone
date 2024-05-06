@@ -57,7 +57,7 @@ const AdminLogin = () => {
               />
               <button
                 type="submit"
-                className="w-full py-2 bg-green-500 hover:bg-green-700 text-white font-bold px-4 rounded focus:outline-none focus:shadow-outline"
+                className="w-full py-2 bg-yellow-500 hover:bg-yellow-700 text-black font-bold px-4 rounded focus:outline-none focus:shadow-outline"
               >
                 Submit
               </button>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import AddsSkeleton from "../../skeleton/AddsSkeleton";
 import AddStore from "../../store/Adds";
 import Pagination from "react-js-pagination";
@@ -10,8 +10,8 @@ const AddListByKeyword = () => {
 
   const [activePage, setActivePage] = useState(
     parseInt(sessionStorage.getItem("activePage")) || 1
-  ); // Get the active page from sessionStorage or default to 1
-  const itemsPerPage = 6; // Number of items per page
+  );
+  const itemsPerPage = 6;
 
   if (!AddsList) {
     return <AddsSkeleton />;

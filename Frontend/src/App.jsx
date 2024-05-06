@@ -2,7 +2,6 @@ import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import HomePage from "./page/HomePage";
 import AdminPage from "./page/AdminPage";
-import AddsPage from "./page/AddsPage";
 import SliderPage from "./page/SliderPage";
 import AllAdds from "./page/AllAdds";
 import LoginPage from "./page/LoginPage";
@@ -12,6 +11,8 @@ import MyAddsPage from "./page/MyAddsPage";
 import CreateAddPage from "./page/CreateAddPage";
 import AddByKeyword from "./page/AddByKeyword";
 import DetailsPage from "./page/DetailsPage";
+import ErrorPage from "./page/ErrorPage";
+import AdminAddsPage from "./page/AdminAddsPage";
 
 const App = () => {
   return (
@@ -25,10 +26,11 @@ const App = () => {
         <Route path="/my-account/my-adds" element={<MyAddsPage />} />
         <Route path="/my-account/create-add" element={<CreateAddPage />} />
         <Route path="/admin-login" element={<AdminPage />} />
-        <Route path="/admin-dashboard/adds" element={<AddsPage />} />
+        <Route path="/admin-dashboard/adds" element={<AdminAddsPage />} />
         <Route path="/admin-dashboard/slider" element={<SliderPage />} />
         <Route path="/by-keyword/:Keyword" element={<AddByKeyword />} />
         <Route path="/details/:addID" element={<DetailsPage />} />
+        <Route path="*" element={<ErrorPage />} />
       </Routes>
     </BrowserRouter>
   );

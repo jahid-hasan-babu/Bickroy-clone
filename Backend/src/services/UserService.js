@@ -78,6 +78,15 @@ const ReadProfileService = async (req) => {
   }
 };
 
+const ReadUserService = async () => {
+  try {
+    let result = await ProfileModel.find();
+    return { status: "success", data: result };
+  } catch (e) {
+    return { status: "fail", message: "Something went wrong" };
+  }
+};
+
 const deleteProfileService = async (req) => {
   try {
     let user_id = req.headers.user_id;
@@ -94,4 +103,5 @@ module.exports = {
   saveProfileService,
   deleteProfileService,
   ReadProfileService,
+  ReadUserService,
 };

@@ -30,6 +30,7 @@ router.delete(
   AuthVerification,
   UserController.deleteProfile
 );
+router.get("/read-user", UserController.reaAllUser);
 
 //adds
 router.post("/create-add", AuthVerification, AddsController.createAdd);
