@@ -19,13 +19,7 @@ const xss = require("xss-clean");
 //Middleware
 app.use(
   cors({
-    origin: function (origin, callback) {
-      if (origin === "https://bickroy-clone.vercel.app") {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
+    origin: "https://bickroy-clone.vercel.app",
     methods: ["POST", "GET", "DELETE", "PATCH"],
     credentials: true,
   })
