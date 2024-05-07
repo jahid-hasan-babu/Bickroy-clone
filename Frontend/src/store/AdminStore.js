@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import axios from "axios";
 
-const BaseURL = `bickroy-clone.vercel.app/api/v1`;
+const BaseURL = `https://bickroy-clone.vercel.app/api/v1`;
 
 const AdminStore = create((set) => ({
   isLogin: () => {
