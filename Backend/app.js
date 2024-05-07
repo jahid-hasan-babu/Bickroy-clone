@@ -19,7 +19,7 @@ const xss = require("xss-clean");
 //Middleware
 app.use(
   cors({
-    origin: "https://bickroy-clone-jcl5.vercel.app/",
+    origin: ["https://bickroy-clone-jcl5.vercel.app"],
     methods: ["POST", "GET", "DELETE", "PATCH"],
     credentials: true,
   })
