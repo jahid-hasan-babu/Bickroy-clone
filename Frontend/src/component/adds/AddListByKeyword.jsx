@@ -4,6 +4,7 @@ import AddStore from "../../store/Adds";
 import Pagination from "react-js-pagination";
 import NoData from "../../assets/img/no-data.jpg";
 import AddListByCategoryKeyword from "./AddListByCategoryKeyword";
+import { Link } from "react-router-dom";
 
 const AddListByKeyword = () => {
   const { AddsList } = AddStore();
@@ -45,24 +46,26 @@ const AddListByKeyword = () => {
                 <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-6">
                   {currentAddsList.map((item, i) => (
                     <div className="text-center p-2" key={i}>
-                      <div className="rounded-lg border-[3px] border-black p-4 bg-yellow-500">
-                        <img
-                          className="rounded-lg h-[160px] w-full"
-                          src={item.image}
-                          alt="image"
-                        />
-                        <div className="text-left py-5 font-bold">
-                          <p className="text-xl">
-                            {item.features} ({item.condition})
-                          </p>
-                          <p>
-                            {item.locationName} , {item.subcategoryName}
-                          </p>
-                          <p>
-                            TK , {item.price} <span>&#2547;</span>{" "}
-                          </p>
+                      <Link to={`/details/${item["_id"]}`}>
+                        <div className="rounded-lg border-[3px] border-black p-4 bg-yellow-500">
+                          <img
+                            className="rounded-lg h-[160px] w-full"
+                            src={item.image}
+                            alt="image"
+                          />
+                          <div className="text-left py-5 font-bold">
+                            <p className="text-xl">
+                              {item.features} ({item.condition})
+                            </p>
+                            <p>
+                              {item.locationName} , {item.subcategoryName}
+                            </p>
+                            <p>
+                              TK , {item.price} <span>&#2547;</span>{" "}
+                            </p>
+                          </div>
                         </div>
-                      </div>
+                      </Link>
                     </div>
                   ))}
                 </div>
