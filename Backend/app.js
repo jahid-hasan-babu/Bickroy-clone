@@ -20,7 +20,7 @@ const xss = require("xss-clean");
 app.use(
   cors({
     origin: ["https://bickroy-clone-jcl5.vercel.app"],
-    methods: ["POST", "GET", "DELETE", "PATCH"],
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     credentials: true,
   })
 );
