@@ -16,7 +16,13 @@ const rateLimit = require("express-rate-limit");
 const xss = require("xss-clean");
 
 //Middleware
-app.use(cors());
+app.use(
+  cors({
+    origin: ["bickroy-clone.vercel.app"],
+    methods: ["POST", "GET", "DELETE", "PATCH"],
+    credentials: true,
+  })
+);
 app.use(helmet());
 app.use(xss());
 app.use(hpp());
