@@ -2,7 +2,7 @@ import Cookies from "js-cookie";
 import { create } from "zustand";
 import axios from "axios";
 
-const BaseURL = `http://localhost:9000/api/v1`;
+const BaseURL = `bickroy-clone.vercel.app/api/v1`;
 
 const CreateAddsStore = create((set) => ({
   // Define initial state

@@ -3,7 +3,7 @@ import { setEmail, getEmail, setCookie } from "../utility/utility";
 import axios from "axios";
 import Cookies from "js-cookie";
 
-const BaseURL = `http://localhost:9000/api/v1`;
+const BaseURL = `bickroy-clone.vercel.app/api/v1`;
 
 const UserStore = create((set) => ({
   isLogin: () => {

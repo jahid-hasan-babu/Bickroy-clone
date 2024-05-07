@@ -1,6 +1,6 @@
 import axios from "axios";
 import { create } from "zustand";
-const BaseURL = `http://localhost:9000/api/v1`;
+const BaseURL = `bickroy-clone.vercel.app/api/v1`;
 
 const AddStore = create((set) => ({
   SliderList: null,
