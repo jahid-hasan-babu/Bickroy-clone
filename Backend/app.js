@@ -2,7 +2,8 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 require("dotenv").config();
-const URL = process.env.DATABASE_URL;
+const URL =
+  "mongodb+srv://jahidhasan:jahid246578@cluster0.u5gekv5.mongodb.net/BIKROY";
 const router = require("./src/routes/api");
 
 const cookieParser = require("cookie-parser");
