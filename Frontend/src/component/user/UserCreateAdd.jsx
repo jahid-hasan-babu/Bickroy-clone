@@ -307,7 +307,7 @@ const CreateAddForm = () => {
                 />
                 New
               </label>
-              <label className="inline-flex bg-white text-black items-center ml-4">
+              <label className="inline-flex items-center ml-4">
                 <input
                   type="radio"
                   value="Used"
@@ -320,7 +320,7 @@ const CreateAddForm = () => {
             </div>
             <div className="mb-4 text-left text-yellow-500">
               <p className="text-lg mb-2">Authenticity</p>
-              <label className="inline-flex bg-white text-black items-center">
+              <label className="inline-flex items-center">
                 <input
                   type="radio"
                   value="Original"
@@ -332,7 +332,7 @@ const CreateAddForm = () => {
                 />
                 Original
               </label>
-              <label className="inline-flex bg-white text-black items-center ml-4">
+              <label className="inline-flex items-center ml-4">
                 <input
                   type="radio"
                   value="Refurbished"
