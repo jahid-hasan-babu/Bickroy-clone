@@ -37,9 +37,9 @@ const Adds = () => {
             All adds
           </h1>
 
-          <div className="grid grid-cols-1 mt-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          <div className="grid text-black grid-cols-1 mt-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {currentAddsList.map((item, i) => (
-              <div className="text-center p-2" key={i}>
+              <div className="text-center text-black p-2" key={i}>
                 <Link to={`/details/${item["_id"]}`}>
                   <div className="rounded-lg border-[3px] border-black p-4 bg-yellow-500">
                     <img
