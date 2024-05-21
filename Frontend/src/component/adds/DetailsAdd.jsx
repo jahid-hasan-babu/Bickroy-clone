@@ -66,10 +66,10 @@ const DetailsAdd = () => {
                 </div>
               </div>
             </div>
-            <div className="mt-4">
+            <div className="mt-4 text-black">
               <hr className="w-full my-5 border-black" />
               <h2 className="text-lg text-black font-semibold mb-2">Description:</h2>
-              <p>{Details[0]["description"]}</p>
+              <p className="text-black">{Details[0]["description"]}</p>
             </div>
           </div>
         ) : (
