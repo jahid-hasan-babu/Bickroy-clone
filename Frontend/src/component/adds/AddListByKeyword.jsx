@@ -43,7 +43,7 @@ const AddListByKeyword = () => {
                   <p className="text-red-500 font-bold mt-4">No adds found.</p>
                 </div>
               ) : (
-                <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-6">
+                <div className="grid text-black grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-6">
                   {currentAddsList.map((item, i) => (
                     <div className="text-center p-2" key={i}>
                       <Link to={`/details/${item["_id"]}`}>
