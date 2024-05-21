@@ -307,20 +307,20 @@ const CreateAddForm = () => {
                 />
                 New
               </label>
-              <label className="inline-flex items-center ml-4">
+              <label className="inline-flex bg-white text-black items-center ml-4">
                 <input
                   type="radio"
                   value="Used"
                   checked={addForm.condition === "Used"}
                   onChange={(e) => addFormChange("condition", e.target.value)}
-                  className="mr-2 bg-white text-black"
+                  className="mr-2"
                 />
                 Used
               </label>
             </div>
             <div className="mb-4 text-left text-yellow-500">
               <p className="text-lg mb-2">Authenticity</p>
-              <label className="inline-flex items-center">
+              <label className="inline-flex bg-white text-black items-center">
                 <input
                   type="radio"
                   value="Original"
@@ -328,11 +328,11 @@ const CreateAddForm = () => {
                   onChange={(e) =>
                     addFormChange("authenticity", e.target.value)
                   }
-                  className="mr-2 bg-white text-black"
+                  className="mr-2"
                 />
                 Original
               </label>
-              <label className="inline-flex items-center ml-4">
+              <label className="inline-flex bg-white text-black items-center ml-4">
                 <input
                   type="radio"
                   value="Refurbished"
@@ -340,7 +340,7 @@ const CreateAddForm = () => {
                   onChange={(e) =>
                     addFormChange("authenticity", e.target.value)
                   }
-                  className="mr-2 bg-white text-black"
+                  className="mr-2"
                 />
                 Refurbished
               </label>
@@ -350,7 +350,7 @@ const CreateAddForm = () => {
               name="image"
               accept="image/*"
               onChange={handleImageChange}
-              className="input-field bg-white text-black rounded-md text-yellow-500 p-1 mb-4 w-full"
+              className="input-field rounded-md text-yellow-500 p-1 mb-4 w-full"
             />
             {imagePreview && (
               <img
