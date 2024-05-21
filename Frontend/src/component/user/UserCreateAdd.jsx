@@ -179,7 +179,7 @@ const CreateAddForm = () => {
               value={selectedDivision}
               onChange={(e) => handleDivisionChange(e.target.value)}
               placeholder="Location Name"
-              className="input-field rounded-md p-1 mb-4 w-full"
+              className="input-field bg-white text-black rounded-md p-1 mb-4 w-full"
             >
               <option key="default" value="">
                 Select Division
@@ -194,7 +194,7 @@ const CreateAddForm = () => {
               value={addForm.subLocationName}
               onChange={(e) => addFormChange("subLocationName", e.target.value)}
               placeholder="Sublocation Name"
-              className="input-field rounded-md p-1 mb-4 w-full"
+              className="input-field bg-white text-black rounded-md p-1 mb-4 w-full"
             >
               <option key="default" value="">
                 Select District
@@ -209,7 +209,7 @@ const CreateAddForm = () => {
               value={addForm.categoryName}
               onChange={(e) => addFormChange("categoryName", e.target.value)}
               placeholder="Location Name"
-              className="input-field rounded-md p-1 mb-4 w-full"
+              className="input-field bg-white text-black rounded-md p-1 mb-4 w-full"
             >
               <option value="">Select Category</option>
               <option value="Mobiles">Mobiles</option>
@@ -226,7 +226,7 @@ const CreateAddForm = () => {
               value={addForm.subcategoryName}
               onChange={(e) => addFormChange("subcategoryName", e.target.value)}
               placeholder="Subcategory Name"
-              className="input-field rounded-md p-1 mb-4 w-full"
+              className="input-field bg-white text-black rounded-md p-1 mb-4 w-full"
             >
               <option value="">Select Sub Category</option>
               <option value="Mobiles">Mobile Phones</option>
@@ -265,13 +265,13 @@ const CreateAddForm = () => {
               onChange={(e) => addFormChange("features", e.target.value)}
               type="text"
               placeholder="Features"
-              className="input-field rounded-md p-1 mb-4 w-full"
+              className="input-field bg-white text-black rounded-md p-1 mb-4 w-full"
             />
             <textarea
               value={addForm.description}
               onChange={(e) => addFormChange("description", e.target.value)}
               placeholder="Description"
-              className="input-field rounded-md p-1 mb-4 w-full"
+              className="input-field bg-white text-black rounded-md p-1 mb-4 w-full"
               rows="4"
             ></textarea>
             <input
@@ -279,21 +279,21 @@ const CreateAddForm = () => {
               onChange={(e) => addFormChange("price", e.target.value)}
               type="text"
               placeholder="Price"
-              className="input-field rounded-md p-1 mb-4 w-full"
+              className="input-field bg-white text-black rounded-md p-1 mb-4 w-full"
             />
             <input
               value={addForm.phone}
               onChange={(e) => addFormChange("phone", e.target.value)}
               type="text"
               placeholder="Phone"
-              className="input-field rounded-md p-1 mb-4 w-full"
+              className="input-field bg-white text-black rounded-md p-1 mb-4 w-full"
             />
             <input
               value={addForm.userName}
               onChange={(e) => addFormChange("userName", e.target.value)}
               type="text"
               placeholder="User Name"
-              className="input-field rounded-md p-1 mb-4 w-full"
+              className="input-field bg-white text-black rounded-md p-1 mb-4 w-full"
             />
             <div className="mb-4 text-left text-yellow-500">
               <p className="text-lg mb-2">Condition</p>
@@ -303,7 +303,7 @@ const CreateAddForm = () => {
                   value="New"
                   checked={addForm.condition === "New"}
                   onChange={(e) => addFormChange("condition", e.target.value)}
-                  className="mr-2"
+                  className="mr-2 bg-white text-black"
                 />
                 New
               </label>
@@ -313,7 +313,7 @@ const CreateAddForm = () => {
                   value="Used"
                   checked={addForm.condition === "Used"}
                   onChange={(e) => addFormChange("condition", e.target.value)}
-                  className="mr-2"
+                  className="mr-2 bg-white text-black"
                 />
                 Used
               </label>
@@ -328,7 +328,7 @@ const CreateAddForm = () => {
                   onChange={(e) =>
                     addFormChange("authenticity", e.target.value)
                   }
-                  className="mr-2"
+                  className="mr-2 bg-white text-black"
                 />
                 Original
               </label>
@@ -340,7 +340,7 @@ const CreateAddForm = () => {
                   onChange={(e) =>
                     addFormChange("authenticity", e.target.value)
                   }
-                  className="mr-2"
+                  className="mr-2 bg-white text-black"
                 />
                 Refurbished
               </label>
@@ -350,7 +350,7 @@ const CreateAddForm = () => {
               name="image"
               accept="image/*"
               onChange={handleImageChange}
-              className="input-field rounded-md text-yellow-500 p-1 mb-4 w-full"
+              className="input-field bg-white text-black rounded-md text-yellow-500 p-1 mb-4 w-full"
             />
             {imagePreview && (
               <img
