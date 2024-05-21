@@ -132,7 +132,7 @@ const ProfileForm = () => {
                     ProfileFormChange("name", e.target.value);
                   }}
                   type="text"
-                  className="input-field rounded-md p-1"
+                  className="input-field bg-white text-black rounded-md p-1"
                 />
               </div>
               <div className="p-2">
@@ -142,7 +142,7 @@ const ProfileForm = () => {
                 <select
                   value={selectedDivision}
                   onChange={(e) => handleDivisionChange(e.target.value)}
-                  className="input-field rounded-md p-1"
+                  className="input-field bg-white text-black rounded-md p-1"
                 >
                   <option key="default" value="">
                     Select Division
@@ -165,7 +165,7 @@ const ProfileForm = () => {
                   onChange={(e) => {
                     ProfileFormChange("subLocationName", e.target.value);
                   }}
-                  className="input-field rounded-md p-1"
+                  className="input-field bg-white text-black rounded-md p-1"
                 >
                   <option key="default" value="">
                     Select District
@@ -185,7 +185,7 @@ const ProfileForm = () => {
                     ProfileFormChange("phone", e.target.value);
                   }}
                   type="text"
-                  className="input-field rounded-md p-1"
+                  className="input-field bg-white text-black rounded-md p-1"
                 />
               </div>
             </div>
