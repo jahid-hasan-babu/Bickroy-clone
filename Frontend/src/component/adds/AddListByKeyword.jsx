@@ -45,9 +45,9 @@ const AddListByKeyword = () => {
               ) : (
                 <div className="grid text-black grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-6">
                   {currentAddsList.map((item, i) => (
-                    <div className="text-center p-2" key={i}>
+                    <div className="text-center text-black p-2" key={i}>
                       <Link to={`/details/${item["_id"]}`}>
-                        <div className="rounded-lg border-[3px] border-black p-4 bg-yellow-500">
+                        <div className="rounded-lg text-black border-[3px] border-black p-4 bg-yellow-500">
                           <img
                             className="rounded-lg h-[160px] w-full"
                             src={item.image}
