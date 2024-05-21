@@ -35,7 +35,7 @@ const LoginForm = () => {
               }}
               placeholder="Email Address"
               type="email"
-              className="w-full md:w-80% border  rounded-md py-3 px-3 mb-4 border-none outline-none bg-yellow-500 placeholder-black"
+              className="w-full text-black md:w-80% border  rounded-md py-3 px-3 mb-4 border-none outline-none bg-yellow-500 placeholder-black"
             />
             <UserSubmitButton
               onClick={onFromSubmit}
