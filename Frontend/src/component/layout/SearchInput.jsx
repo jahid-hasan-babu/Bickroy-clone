@@ -15,7 +15,7 @@ const SearchInput = () => {
     <div className="bg-slate-300 items-center text-center py-11">
       <div className="flex items-center justify-center text-center font-bold text-2xl p-5">
         <MdLocationPin className="inline-block mr-2" />
-        <h1 className="inline-block">All of Bangladesh</h1>
+        <h1 className="inline-block text-black">All of Bangladesh</h1>
       </div>
       <div className="flex items-center justify-center">
         <input
