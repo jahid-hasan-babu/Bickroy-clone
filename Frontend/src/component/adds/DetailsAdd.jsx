@@ -68,7 +68,7 @@ const DetailsAdd = () => {
             </div>
             <div className="mt-4">
               <hr className="w-full my-5 border-black" />
-              <h2 className="text-lg font-semibold mb-2">Description:</h2>
+              <h2 className="text-lg text-black font-semibold mb-2">Description:</h2>
               <p>{Details[0]["description"]}</p>
             </div>
           </div>
